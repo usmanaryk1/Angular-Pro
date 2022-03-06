@@ -14,9 +14,15 @@ import { Component } from '@angular/core';
   </button>
   </auth-form>
 
+<!-- projecting component => if wanna display nother component into the current auth-form component such as projection a auth-remember component into auth-form <auth-form> <auth-remember ></auth-remember> </auth-form> only in login form-->
   <auth-form 
   (submitted)="loginUser($event)">
   <h3> Login </h3>
+
+  <auth-remember 
+  (checked)="rememberUser($event)" >
+  </auth-remember>
+
   <button type="submit">
   Login
   </button>
@@ -28,10 +34,17 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'AngularPro';
 
+  //initial state of remember me
+  rememberMe:boolean=false;
+  rememberUser(remember:boolean){
+    // console.log("remember",remember);
+    this.rememberMe=remember;
+  }
+
   createUser(user:any){
     console.log("create User",user);
   }
   loginUser(user:any){
-    console.log("Login User",user);
+    console.log("Login User",user, this.rememberMe);
   }
 }
