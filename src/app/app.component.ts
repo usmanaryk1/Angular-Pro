@@ -9,13 +9,17 @@ import { Component } from '@angular/core';
   <auth-form 
   (submitted)="createUser($event)">
   <h3> Create account </h3>
- 
+  <button type="submit">
+  Join us
+  </button>
   </auth-form>
 
   <auth-form 
   (submitted)="loginUser($event)">
   <h3> Login </h3>
-  
+  <button type="submit">
+  Login
+  </button>
   </auth-form>
   
   </div>

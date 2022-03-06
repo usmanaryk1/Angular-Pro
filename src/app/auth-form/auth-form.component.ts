@@ -6,11 +6,12 @@ import { User } from './auth-form.interface';
     template:`
     <div>
         <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
-
+        
 <!-- injecting dynamic single or multi dom node by ng-content(content projection) -->
 <!-- content projection => show content/value coming through selectors like show different heading (create or login) dynamically at same form-->
+<!-- projection slot => if there is more then 1 ng-content projection then use select attribute  to show spacific element/.my-class/#id like select="h3"  <ng-content select="h3"></ng-content>  <ng-content select="button"></ng-content>-->
        
-        <ng-content></ng-content>
+        <ng-content select="h3"></ng-content>
 
         <label>
         Email:
@@ -23,9 +24,7 @@ import { User } from './auth-form.interface';
         </label>
 
         
-        <button type="submit">
-        Submit
-        </button>
+        <ng-content select="button"></ng-content>
        
             
         </form>
