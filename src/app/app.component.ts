@@ -17,6 +17,8 @@ import { Component } from '@angular/core';
 <!-- projecting component => if wanna display nother component into the current auth-form component such as projection a auth-remember component into auth-form <auth-form> <auth-remember ></auth-remember> </auth-form> only in login form-->
   <auth-form 
   (submitted)="loginUser($event)">
+
+  <!-- ----------content inside the auth-form called contentchild of auth-form component, to access that child content in auth-form use contentchild and aftercontentinit life cycle hooks-------- -->
   <h3> Login </h3>
 
   <auth-remember 
