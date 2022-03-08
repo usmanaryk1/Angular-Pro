@@ -20,10 +20,12 @@ import { Component } from '@angular/core';
 
   <!-- ----------content inside the auth-form called contentchild of auth-form component, to access that child content in auth-form use contentchild and aftercontentinit life cycle hooks-------- -->
   <h3> Login </h3>
-
-  <auth-remember 
-  (checked)="rememberUser($event)" >
-  </auth-remember>
+  
+  
+  <!-- ----------multiple auth-remember to impliment ConrentChildren and QueryList-------- -->
+  <auth-remember (checked)="rememberUser($event)" > </auth-remember>
+  <auth-remember (checked)="rememberUser($event)" > </auth-remember>
+  <auth-remember (checked)="rememberUser($event)" > </auth-remember>
 
   <button type="submit">
   Login

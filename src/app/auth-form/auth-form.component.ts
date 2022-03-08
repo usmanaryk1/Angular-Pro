@@ -1,4 +1,4 @@
-import { Component, Output , EventEmitter, ContentChild , AfterContentInit} from '@angular/core';
+import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList} from '@angular/core';
 import { User } from './auth-form.interface';
 import { AuthRememberComponent } from './auth-remember.component';
 
@@ -46,20 +46,32 @@ import { AuthRememberComponent } from './auth-remember.component';
 })
 export class AuthFormComponent implements AfterContentInit{
 
-    //----------content Child implements -------//
+    //----------content Child to contentChildren with querylists implements -------//
     showMessage:boolean=false;
     //now how to access the auth-remember component checkbox value true or false and assign to showMessage to show and hide while clicking the checkbox
      
-    @ContentChild(AuthRememberComponent) //get the component access and use that remember value in ngAfterContentInit 
+    // @ContentChild(AuthRememberComponent) //get the component access and use that remember value in ngAfterContentInit 
+    // //  remember: AuthRememberComponent;
+    //  remember: any;
+    
+    //change ContentChild into ContentChildren and QueryList
+    @ContentChildren(AuthRememberComponent) //get the component access and use that remember value in ngAfterContentInit 
     //  remember: AuthRememberComponent;
-     remember: any;
+     remember!: QueryList<any> ; //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
      
      ngAfterContentInit(){
         // console.log(this.remember);
         //use if condition because first form create dont have this checkbox first will give undefined then will give AuthRememberComponent {checked: EventEmitter}
         if(this.remember){
             // now get the value of checkbox and assign to showMessage, subscribe the output submitted event
-            this.remember.checked.subscribe((checked:boolean)=> this.showMessage=checked)
+            // this.remember.checked.subscribe((checked:boolean)=> this.showMessage=checked)
+            
+            //impliment contentChildren and get all different method for query like changes, dirty, filter, forEach, map etc
+            //content children injected 3 times so we use querylist to each particular children,contentchildren auth-remember injected 3 times so with contentchildren we get querylist and iterate that querylist and subscribe each of outputs 
+            //just for the practice to know how to work contentchildren querylist
+            this.remember.forEach(item=> {
+                item.checked.subscribe((checked:boolean)=> this.showMessage=checked)
+            })
         }
         
        } 
