@@ -5,6 +5,9 @@ import { AuthRememberComponent } from './auth-remember.component';
 
 @Component({
     selector: 'auth-form',
+    styles:[`
+    .email{border-color:#9f72e6;}
+    `],
     template:`
     <div>
         <form (ngSubmit)="onSubmit(form.value)" #form="ngForm">
@@ -31,17 +34,6 @@ import { AuthRememberComponent } from './auth-remember.component';
         <ng-content select="auth-remember"></ng-content>
 
 
-<!-- now access the checkbox value checked true or false (from component projection via contentchild and aftercontentinit) and set if statement dynamically 
-<!--this local variable showMessage will be true or false based on checkbox checked true or false -->    
-  <!--   <div *ngIf="showMessage">
-            You will be logged in for 30 days.
-         </div>
-    -->
-
-
-
-<!-- viewChildren=> use with querylist (multiple component) to show and hide particular component based on particular expression like [style.display]=" " -->
-
 <auth-message [style.display]="(showMessage? 'inherit': 'none')"> </auth-message>
 
 <ng-content select="button"></ng-content>
@@ -62,12 +54,27 @@ export class AuthFormComponent implements AfterContentInit , AfterViewInit{
 
     @ViewChildren(AuthMessageComponent) message!:QueryList<AuthMessageComponent>; //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
     ngAfterViewInit() {
-
-        //templateRef use as viewChild
         console.log(this.email);//now we fetch the email element //ElementRef {nativeElement: input.ng-untouched.ng-pristine.ng-valid}
-        
 
-        console.log(this.message);
+
+
+        //Using ElementRef and nativeElement
+        //nativeElement essentially exposes the particular dom node in this case our input and we can call these methods such as setAttribute and add a class name usig classList and also focus on that particular element 
+        //with NativeElements add some attribute, classes and invoke some native methods
+        console.log(this.email.nativeElement);//we have access dom node email input with nativeElement//<input type="email" name="email" ngmodel="" ng-reflect-name="email" ng-reflect-model="" class="ng-untouched ng-pristine ng-valid">
+        
+        //placeholder added via angular which is shadow-root which means shadow-dom which is actually gives us placeholder on this element
+        // setAttribute like in plane js first get element and then set element.setAttribute but in angular have access like this
+        this.email.nativeElement.setAttribute('placeholder','Enter your email address')//setAttribute('attribute','vlue')
+        // classList add class to style and then first get element and then set element.classList.add('className')
+        this.email.nativeElement.classList.add('email')//classList.add('email')
+        // focus we can access the  method on the element such as focus()
+        this.email.nativeElement.focus()//focus() method
+
+
+
+
+        // console.log(this.message);
         
         //ViewChildren only works in ngAfterViewinit
         // if(this.message){//safety check

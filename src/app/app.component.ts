@@ -5,15 +5,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss'],
   template:`
   <div>
-<!-- content projection passing content/value through selectors using ng-content-->
-  <auth-form 
-  (submitted)="createUser($event)">
-  <h3> Create account </h3>
-  <button type="submit">
-  Join us
-  </button>
-  </auth-form>
-
 <!-- projecting component => if wanna display nother component into the current auth-form component such as projection a auth-remember component into auth-form <auth-form> <auth-remember ></auth-remember> </auth-form> only in login form-->
   <auth-form 
   (submitted)="loginUser($event)">
