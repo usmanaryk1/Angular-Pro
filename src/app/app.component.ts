@@ -24,19 +24,28 @@ import { Component } from '@angular/core';
   
   <!-- ----------multiple auth-remember to impliment ConrentChildren and QueryList-------- -->
   <auth-remember (checked)="rememberUser($event)" > </auth-remember>
-  <auth-remember (checked)="rememberUser($event)" > </auth-remember>
-  <auth-remember (checked)="rememberUser($event)" > </auth-remember>
 
   <button type="submit">
   Login
   </button>
   </auth-form>
-  
-  </div>
-  `
+
+</div>
+
+<!-- life cycle hooks -->
+<div>
+<img [src]="LifeCycleHooks" alt="LifeCycleHooks" width="800" height="600">
+<img [src]="LifeCycleHooks1" alt="LifeCycleHooks1" >
+<a href="https://www.c-sharpcorner.com/article/learn-about-angular-component-hook-life-cycle/" > angular life cycle hooks</a>
+</div>
+`
 })
 export class AppComponent {
   title = 'AngularPro';
+  
+    //bind logo path with img src (property binding)
+    LifeCycleHooks:string="assets/lifecyclehooks.png"
+    LifeCycleHooks1:string="assets/lifecyclehooks1.jpg"
 
   //initial state of remember me
   rememberMe:boolean=false;

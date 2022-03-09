@@ -1,5 +1,6 @@
-import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList} from '@angular/core';
+import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList, AfterViewInit, ViewChild} from '@angular/core';
 import { User } from './auth-form.interface';
+import { AuthMessageComponent } from './auth-message.component';
 import { AuthRememberComponent } from './auth-remember.component';
 
 @Component({
@@ -31,20 +32,36 @@ import { AuthRememberComponent } from './auth-remember.component';
 
 <!-- now access the checkbox value checked true or false (from component projection via contentchild and aftercontentinit) and set if statement dynamically 
 <!--this local variable showMessage will be true or false based on checkbox checked true or false -->    
-    <div *ngIf="showMessage">
-        You will be logged in for 30 days.
-    </div>
+  <!--   <div *ngIf="showMessage">
+            You will be logged in for 30 days.
+         </div>
+    -->
 
-        <ng-content select="button"></ng-content>
+
+
+<!-- viewChild=> show and hide particular component based on particular expression like [style.display]=" " -->
+<!-- using contentChild/children will be incorrect in auth-message becauuse auth-message is not beeing projected like (ng-content auth-remember) hoever auth-message is consider viewchild of this particular component -->
+<!--viewChild is slightly different from contentChild/children because we are querying the view we are currently inside so import that component and use in @viewChild(AuthMessageComponent) and afterViewInit life cycle hoock-->
+<auth-message [style.display]="(showMessage? 'inherit': 'none')"> </auth-message>
+
+<ng-content select="button"></ng-content>
        
             
         </form>
-    </div>
 
-    
+        </div>
+            
     `
 })
-export class AuthFormComponent implements AfterContentInit{
+export class AuthFormComponent implements AfterContentInit , AfterViewInit{
+  
+    @ViewChild(AuthMessageComponent) message!:AuthMessageComponent; //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
+    ngAfterViewInit() {
+        console.log(this.message);
+        //this.message.days=30;//error => Expression has changed after it was checked. Previous value: '7'. Current value: '30' 
+        // angular change detaction strategy works in a spacific way duting dvelopment actually checked property towice to make sure you arn't making any mistake which is exactly we are doing here (days=7 instqntly changed into days=30) so angular is doing this error because it kind of against principle of uni directional data flow because we are changing something after the view initialized so use in ngAfterContentInit (also not woring in ngAfterContentInit ? so use jugar settimeout)
+    }
+
 
     //----------content Child to contentChildren with querylists implements -------//
     showMessage:boolean=false;
@@ -60,6 +77,16 @@ export class AuthFormComponent implements AfterContentInit{
      remember!: QueryList<any> ; //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
      
      ngAfterContentInit(){
+
+        //this.message.days=30; in afterViewInit giving error so use here in aftercontentinit 
+        if(this.remember){//safety check
+            console.log(this.message);
+            setTimeout(() => { //jugar wprking because this.message is undefined here
+                this.message.days=30;
+            }); 
+        }
+
+
         // console.log(this.remember);
         //use if condition because first form create dont have this checkbox first will give undefined then will give AuthRememberComponent {checked: EventEmitter}
         if(this.remember){
