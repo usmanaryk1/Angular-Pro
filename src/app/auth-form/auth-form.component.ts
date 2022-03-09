@@ -1,4 +1,4 @@
-import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList, AfterViewInit, ViewChildren, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
+import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList, AfterViewInit, ViewChildren, ChangeDetectorRef, ViewChild, ElementRef, Renderer2} from '@angular/core';
 import { User } from './auth-form.interface';
 import { AuthMessageComponent } from './auth-message.component';
 import { AuthRememberComponent } from './auth-remember.component';
@@ -47,7 +47,10 @@ import { AuthRememberComponent } from './auth-remember.component';
 })
 export class AuthFormComponent implements AfterContentInit , AfterViewInit{
   
-    constructor(private cd:ChangeDetectorRef){}
+    constructor(
+        private cd:ChangeDetectorRef,
+        private renderer:Renderer2 //change renderer(deprecated) into renderer2 after angular9
+        ){}
 
     //using viewChild we going to query element directly (email fetch) with the templete ref #email, with the type if ElementRef 
     @ViewChild('email') email!:ElementRef; //get email by templateref variable #email and give name to email:ElementRef to use in ts  //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
@@ -58,20 +61,32 @@ export class AuthFormComponent implements AfterContentInit , AfterViewInit{
 
 
 
-        //Using ElementRef and nativeElement
-        //nativeElement essentially exposes the particular dom node in this case our input and we can call these methods such as setAttribute and add a class name usig classList and also focus on that particular element 
-        //with NativeElements add some attribute, classes and invoke some native methods
-        console.log(this.email.nativeElement);//we have access dom node email input with nativeElement//<input type="email" name="email" ngmodel="" ng-reflect-name="email" ng-reflect-model="" class="ng-untouched ng-pristine ng-valid">
+        // //Using ElementRef and nativeElement //this is great way to build if you wanna build spacifically for just the web however angular have something call plateform renderrer injected via constructor(where you can distribute your code on multiple enviornment) in next commit(next video)
+        // //nativeElement essentially exposes the particular dom node in this case our input and we can call these methods such as setAttribute and add a class name usig classList and also focus on that particular element 
+        // //with NativeElements add some attribute, classes and invoke some native methods
+        // console.log(this.email.nativeElement);//we have access dom node email input with nativeElement//<input type="email" name="email" ngmodel="" ng-reflect-name="email" ng-reflect-model="" class="ng-untouched ng-pristine ng-valid">
         
-        //placeholder added via angular which is shadow-root which means shadow-dom which is actually gives us placeholder on this element
-        // setAttribute like in plane js first get element and then set element.setAttribute but in angular have access like this
-        this.email.nativeElement.setAttribute('placeholder','Enter your email address')//setAttribute('attribute','vlue')
-        // classList add class to style and then first get element and then set element.classList.add('className')
-        this.email.nativeElement.classList.add('email')//classList.add('email')
-        // focus we can access the  method on the element such as focus()
-        this.email.nativeElement.focus()//focus() method
+        // //placeholder added via angular which is shadow-root which means shadow-dom which is actually gives us placeholder on this element
+        // // setAttribute like in plane js first get element and then set element.setAttribute but in angular have access like this
+        // this.email.nativeElement.setAttribute('placeholder','Enter your email address')//setAttribute('attribute','vlue')
+        // // classList add class to style and then first get element and then set element.classList.add('className')
+        // this.email.nativeElement.classList.add('email')//classList.add('email')
+        // // focus we can access the  method on the element such as focus()
+        // this.email.nativeElement.focus()//focus() method
 
 
+
+
+
+
+        //rendere2 is a plateform agnostic because we can deploy(distributing the code) the things like mobile enviornement and angular is basically abstracting these layer for you (for web application and mobile application renderer2(platform agnostic Renderer) is best)(only for web application just simple nativeElement(native API's) is best this.email.nativeElement() )
+        //Using the platform agnostic Renderer //now angular use renderer2//plateform renderrer injected via constructor where you can distribute your code on multiple enviornment
+        //alternate=> ElementRef and nativeElement //this is great way to build if you wanna build spacifically for just the web however angular have something call plateform renderrer injected via constructor(where you can distribute your code on multiple enviornment) using here now
+        // migrate renderer to renderer2 where change setElementAttribute(el, name, value?) into setAttribute(elment, 'attributeName', 'value') //link here all info//https://angular.io/guide/migration-renderer
+        this.renderer.setAttribute(this.email.nativeElement, 'placeholder', 'Enter your email address')//three arguments pass 1st element and 2nd attributeName and 3rd value
+        this.renderer.addClass(this.email.nativeElement, 'email')//two arguments pass 1st element and 2nd attributeName //setElementClass(renderElement, className, isAdd) migrate renderer into renderer2 isAdd ? addClass(renderElement, className)
+        this.renderer.selectRootElement(this.email.nativeElement).focus()//this.renderer2.selectRootElement('#domElementId').focus(). //invokeElementMethod(renderElement, methodName, args?) migrate renderer into renderer2 (renderElement as any)[methodName].apply(renderElement, args);
+        
 
 
         // console.log(this.message);
