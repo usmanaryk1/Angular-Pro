@@ -1,4 +1,4 @@
-import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList, AfterViewInit, ViewChildren, ChangeDetectorRef} from '@angular/core';
+import { Component, Output , EventEmitter , AfterContentInit, ContentChildren, QueryList, AfterViewInit, ViewChildren, ChangeDetectorRef, ViewChild, ElementRef} from '@angular/core';
 import { User } from './auth-form.interface';
 import { AuthMessageComponent } from './auth-message.component';
 import { AuthRememberComponent } from './auth-remember.component';
@@ -16,9 +16,10 @@ import { AuthRememberComponent } from './auth-remember.component';
        
         <ng-content select="h3"></ng-content>
 
+        <!-- use templareRef variabel #email to use in ViewChild direct access in ts for doing styling controoling etc -->
         <label>
         Email:
-        <input type="email" name="email" ngModel >
+        <input type="email" name="email" ngModel #email>
         </label>
         
         <label>
@@ -42,8 +43,6 @@ import { AuthRememberComponent } from './auth-remember.component';
 <!-- viewChildren=> use with querylist (multiple component) to show and hide particular component based on particular expression like [style.display]=" " -->
 
 <auth-message [style.display]="(showMessage? 'inherit': 'none')"> </auth-message>
-<auth-message [style.display]="(showMessage? 'inherit': 'none')"> </auth-message>
-<auth-message [style.display]="(showMessage? 'inherit': 'none')"> </auth-message>
 
 <ng-content select="button"></ng-content>
        
@@ -57,8 +56,17 @@ import { AuthRememberComponent } from './auth-remember.component';
 export class AuthFormComponent implements AfterContentInit , AfterViewInit{
   
     constructor(private cd:ChangeDetectorRef){}
+
+    //using viewChild we going to query element directly (email fetch) with the templete ref #email, with the type if ElementRef 
+    @ViewChild('email') email!:ElementRef; //get email by templateref variable #email and give name to email:ElementRef to use in ts  //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
+
     @ViewChildren(AuthMessageComponent) message!:QueryList<AuthMessageComponent>; //The "!" syntax exists for those common-ish cases where you can't guarantee that the value will be defined immediately. It's an escape hatch, and shouldn't be relied on, as it can make your code less safe. A default value is usually preferred.//or use "strictPropertyInitialization": false in tsconfig.json
     ngAfterViewInit() {
+
+        //templateRef use as viewChild
+        console.log(this.email);//now we fetch the email element //ElementRef {nativeElement: input.ng-untouched.ng-pristine.ng-valid}
+        
+
         console.log(this.message);
         
         //ViewChildren only works in ngAfterViewinit
