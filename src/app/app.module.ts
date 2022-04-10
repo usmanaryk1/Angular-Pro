@@ -13,6 +13,7 @@ import { AuthFormModule } from './auth-form/auth-form.module';
     AuthFormModule
   ],
   providers: [],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

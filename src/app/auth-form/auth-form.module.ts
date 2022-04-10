@@ -21,6 +21,10 @@ import { AuthMessageComponent } from './auth-message.component';
         AuthRememberComponent,
         AuthMessageComponent
     ],
+    //not compile on run time it will compile later on
+    entryComponents:[
+        AuthFormComponent
+    ]
 })
 
 export class AuthFormModule{}
