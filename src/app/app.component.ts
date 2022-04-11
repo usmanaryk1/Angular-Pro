@@ -47,11 +47,16 @@ export class AppComponent implements AfterContentInit ,AfterViewInit {//for use 
     setTimeout(() => {
       const component = this.entry.createComponent(authFormFactory)//or const component = this.entry.createComponent(this.resolver.resolveComponentFactory(AuthFormComponent))
     
-    //dynamic component not have @Input title=Login but its value can access from its instance (instance exposes all property)(and then overwrite it) which create with createComponent(componentName)
+    //input=> dynamic component input (not have @Input title=Login but optionally can use) its value can access from its instance (instance exposes all property)(and then overwrite it) which create with createComponent(componentName)
     //this is how dynamically change the @Input() title in compile time
     console.log(component.instance); //here title public porperty can overwrite//AuthFormComponent {title: 'Login', submitted: EventEmitter_, __ngContext__: LRootView(31)}
     component.instance.title='Create account';//overwriting(Re-itterate) the title //here in authform title not declear as @Input() title but its value is change with instance but optionally could use @Input() title if like too;
     
+    //output=> dynamic component output can access by subscribing the output event (like submitted output event here)
+    console.log(component.instance.submitted); //here submitted output event can access //AuthFormComponent {title: 'Login', submitted: EventEmitter_, __ngContext__: LRootView(31)}
+    component.instance.submitted.subscribe(this.loginUser);//subscribe the user object here which showing in #entry div;
+  
+  
   },1000);
   
   }
