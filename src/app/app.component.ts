@@ -46,7 +46,13 @@ export class AppComponent implements AfterContentInit ,AfterViewInit {//for use 
     //undefined initialize so use setTimeout not good i dont get idea why its giving error this.entry red underline (gives error only in development mode i think , in production mode error will not accour)
     setTimeout(() => {
       const component = this.entry.createComponent(authFormFactory)//or const component = this.entry.createComponent(this.resolver.resolveComponentFactory(AuthFormComponent))
-    },1000);
+    
+    //dynamic component not have @Input title=Login but its value can access from its instance (instance exposes all property)(and then overwrite it) which create with createComponent(componentName)
+    //this is how dynamically change the @Input() title in compile time
+    console.log(component.instance); //here title public porperty can overwrite//AuthFormComponent {title: 'Login', submitted: EventEmitter_, __ngContext__: LRootView(31)}
+    component.instance.title='Create account';//overwriting(Re-itterate) the title //here in authform title not declear as @Input() title but its value is change with instance but optionally could use @Input() title if like too;
+    
+  },1000);
   
   }
 
