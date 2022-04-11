@@ -21,6 +21,10 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
 Destory
 </button>
 
+<button (click)="moveComponent()">
+Move
+</button>
+
 <div #entry > </div>
 
 </div>
@@ -52,7 +56,12 @@ export class AppComponent implements AfterContentInit ,AfterViewInit {//for use 
     
     //undefined initialize so use setTimeout not good i dont get idea why its giving error this.entry red underline (gives error only in development mode i think , in production mode error will not accour)
     setTimeout(() => {
-      this.component = this.entry.createComponent(authFormFactory)//or const component = this.entry.createComponent(this.resolver.resolveComponentFactory(AuthFormComponent))
+
+      // two component create and this component will act as first component if wana move 2nd component then write 0 to 2nd component as a 2nd argument it will move above
+      this.entry.createComponent(authFormFactory);//title=login and if 0 argumant write to 2nd component then first title will become Create account 
+
+
+      this.component = this.entry.createComponent(authFormFactory,0)//or const component = this.entry.createComponent(this.resolver.resolveComponentFactory(AuthFormComponent))//0 is a optional 2nd argument if need reorder/move dynamically component
     
     //input=> dynamic component input (not have @Input title=Login but optionally can use) its value can access from its instance (instance exposes all property)(and then overwrite it) which create with createComponent(componentName)
     //this is how dynamically change the @Input() title in compile time
@@ -76,6 +85,12 @@ export class AppComponent implements AfterContentInit ,AfterViewInit {//for use 
   destoryComponent(){
     //calling the method and destory the dynamically component
     this.component.destroy();
+  }
+  //dynamically component move/reorder 
+  moveComponent(){
+    //reorder/move(different order) the dynamically component with hostView
+    //this.entry which is ViewContainerRef which is use ViewChild
+    this.entry.move(this.component.hostView,1);
   }
 
   loginUser(user:any){
