@@ -6,56 +6,24 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
   styleUrls: ['./app.component.scss'],
   template:`
   <div>
-<!-- ----------For creat Dynamic component in app.component.ts instead <auth-form></auth-form> use <div #entry ></div> with the hepl of ViewChild its type ViewContainerRef, implement lifecycle AfterContentInit and DI in constructor ComponentFactoryResolver-------- -->
 
-<!--  <auth-form 
-      (submitted)="loginUser($event)">
-      </auth-form>
--->
+<!-- we learned how to injected ng-template into our dom beside to partucular <div #entry ></div> div, using the  API such as creteEmbededView whic is expose to us via a ViewContainerRef -->
+<!-- <div #entry > </div> in this video infact change this div to use this directive called ngTemplateOutlet (using ng-container whichis never get render in the dom ony inside material get render in th dom like div)-->
 
-<!-- instead use auth-form create dynamic component take a div with templateRef #entry to create dynamic component -->
-<!-- this div act as container -->
-<!-- using this templateRef #entry we are going to use viewChild decarator and communicate directly to this piece of dom to allow us to injuct this component -->
+<ng-container
+[ngTemplateOutlet]="tmpl"> <!--this is cleaver directive because we just pass simple template ref tmpl into the ng component outlet and it will be auto maticaly rendered in the dom-->
 
-<div #entry > </div>
-<!-- intantialte custom template and injected into the dynamic #entry component -->
+</ng-container>
 
-<!-- passing a particular context to a #tmpl  like template variable let-name($implicit value) and ngFor directive -->
-<!-- let-name(implicit value) doesn't have a value and let-location="location" does have a value -->
-<ng-template #tmpl let-name let-location="location" >
- {{ name }}: {{ location }}
+<ng-template #tmpl > <!-- this ng-template #tmpl will render inside the ng-container with the help of ngTemplateOutlet directive-->
+ Tood Motto : England, UK
 </ng-template>
 
 </div>
 
 `
 })
-export class AppComponent implements AfterContentInit {//for use ViewChild implements AfterContentInit lifecycle hook rather then AfterViewInit because we can setup our component subscribe to the output and change the data before the actual view has been initialize 
-  title = 'AngularPro';
-
-  // to interact dom element #entry div use ViewChild
-  // passing 2nd argument(read) in ViewChild, this is essentially changes when we get back which its gives us different lockup token that we previously used to viewchild where we got element ref (entry!=> local use in ts)
-  @ViewChild('entry' , { read:ViewContainerRef}) entry!:ViewContainerRef; // use ! for error solve initialize undefined also can use ?(but not working here)
-  
-  //alternate way of create custom template component with templateref and createembeddedview and show in the dynamic #entry component 
-  @ViewChild('tmpl') tmpl!:TemplateRef<any>; // use ! for error solve initialize undefined also can use ?(but not working here)
-
-  ngAfterContentInit(){
-    console.log("ngAfterContentInit");
-
-    setTimeout(() => {
-      this.entry.createEmbeddedView(this.tmpl,{ //second argument is a context is optional
-        // the way of ngFor work is called implicit value (like ngFor="let nam of name"=> name is implicit value)
-         $implicit:'Tood Motto',
-         location:'England, UK'
-      }
-        )//tmpl itself becomes our embeddedview//its create template below the #entry div see in console like router does 
-    }, 1000);
-   
-  }
+export class AppComponent  {
 
 
-  loginUser(user:any){
-    console.log("Login User",user);
-  }
 }
