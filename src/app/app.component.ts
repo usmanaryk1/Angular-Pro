@@ -20,8 +20,10 @@ import { AuthFormComponent } from './auth-form/auth-form.component';
 <div #entry > </div>
 <!-- intantialte custom template and injected into the dynamic #entry component -->
 
-<ng-template #tmpl >
-Tood Motto : England, UK.
+<!-- passing a particular context to a #tmpl  like template variable let-name($implicit value) and ngFor directive -->
+<!-- let-name(implicit value) doesn't have a value and let-location="location" does have a value -->
+<ng-template #tmpl let-name let-location="location" >
+ {{ name }}: {{ location }}
 </ng-template>
 
 </div>
@@ -42,7 +44,12 @@ export class AppComponent implements AfterContentInit {//for use ViewChild imple
     console.log("ngAfterContentInit");
 
     setTimeout(() => {
-      this.entry.createEmbeddedView(this.tmpl)//tmpl itself becomes our embeddedview//its create template below the div like router does 
+      this.entry.createEmbeddedView(this.tmpl,{ //second argument is a context is optional
+        // the way of ngFor work is called implicit value (like ngFor="let nam of name"=> name is implicit value)
+         $implicit:'Tood Motto',
+         location:'England, UK'
+      }
+        )//tmpl itself becomes our embeddedview//its create template below the #entry div see in console like router does 
     }, 1000);
    
   }
