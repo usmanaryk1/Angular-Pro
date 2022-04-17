@@ -1,36 +1,24 @@
-import { AfterContentInit, AfterViewInit, Component, ComponentFactoryResolver, ComponentRef, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component } from '@angular/core';
 
-import { AuthFormComponent } from './auth-form/auth-form.component';
 @Component({
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template:`
   <div>
-
-<!-- we learned how to injected ng-template into our dom beside to partucular <div #entry ></div> div, using the  API such as creteEmbededView whic is expose to us via a ViewContainerRef -->
-<!-- <div #entry > </div> in this video infact change this div to use this directive called ngTemplateOutlet (using ng-container whichis never get render in the dom ony inside material get render in th dom like div)-->
-
-
-<ng-container
-[ngTemplateOutlet]="tmpl"
-[ngTemplateOutletContext]="ctx" > <!-- [ngTemplateOutlet]="tmpl" =>this is cleaver directive because we just pass simple template ref tmpl into the ng component outlet and it will be auto maticaly rendered in the dom , and [ngTemplateOutletContext]="ctx" => how to pass context here such as implicit value and variable like in viewContainerRef -->
-
-
-</ng-container>
-
-<ng-template #tmpl let-name let-location="locations"> <!-- this ng-template #tmpl will render inside the ng-container with the help of ngTemplateOutlet directive-->
- <!-- Tood Motto : England, UK -->
- {{name}} : {{ location }}
-</ng-template>
-
+  There are three types of encapsulation 1=Emulated(by default) 2=ShadowDom(Native) 3=None(style act like declear globale style in to the Dom like styles.scss) <br>
+  
+  One is Emulated nghost-rendom-id like (.example-one[_ngcontent-itr-c11]) inline style
+  <example-one></example-one>
+  
+  Two is shadow-root (open) and all style lives inside this root (encapsulation:ViewEncapsulation.ShadowDom create brand new Dom for us) chrome support shadowdom
+  <example-two></example-two>
+  
+  Three None styles act like globally declear and overwrite/effect other component class style so we don't want to do this to avoid complicaion in styling
+  <example-three></example-three>
 </div>
 
 `
 })
 export class AppComponent  {
 
-ctx={
-  $implicit:'Tood Motto',
-  locations:'England, Uk'
-}
 }
