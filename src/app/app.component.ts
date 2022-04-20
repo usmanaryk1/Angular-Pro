@@ -4,9 +4,20 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template:`
-  This is {{title}}.
+  
+  <div>
+    <label>
+      Credit Card Number
+      <input 
+        name="credit-card" 
+        type="text"
+        placeholder="Enter your 16-digit card number"
+        credit-card>
+    </label>
+  </div>
+
   `
 })
 export class AppComponent {
-  title = 'AngularPro';
+  
 }
