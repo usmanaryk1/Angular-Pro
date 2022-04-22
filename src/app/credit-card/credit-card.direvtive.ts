@@ -1,12 +1,16 @@
 
 //custom directive almost like a component directive but the only dirffrence is in directive we can't declear template and [] used for selector like selector:'[credit-card]' then use credit-card selector in input like we use conditional *ngIf directive 
-import { Directive, ElementRef, HostListener, } from "@angular/core"; 
+import { Directive, ElementRef, HostBinding, HostListener, } from "@angular/core"; 
 
 @Directive({
     selector:'[credit-card]'//because we use credit-card attribute in <input credit-card in app.component.ts> so we need here [] attribute selector so this is essentially a query selector and if you wana select something in plane javaScript we use [] to do know infact it is a attribute
 })
 
 export class CreditCardDirective{
+
+    @HostBinding('style.border')// this will bind border style of input where credit-card directive available/declear
+    border:string='';
+
      //input is essentily event listener for the host and host is the element(input) where we bound(credit-card) the directive to like event is input where credit-card mention in input
      // if we want to access the $ event, this is ['$event'] array of string which we want to listen to 
      //then create a function and event type which we gona used
@@ -38,6 +42,11 @@ export class CreditCardDirective{
         input.value= numbers.join(' ');//every 4 character seprate via a space
 
 
+        //host binding will change the style of input if any latter try to write
+        this.border='';
+        if(/[^\d]+/.test(trimmed)){//check if any latter exist with test() method
+            this.border='1px solid red'
+        }
 
         
 
