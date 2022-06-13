@@ -10,51 +10,59 @@ import { Component } from '@angular/core';
 
   <div>
 
-    <label>
-      Credit Card Number
-      <input 
-        name="credit-card" 
-        type="text"
-        placeholder="Enter your 16-digit card number"
-        credit-card>
-    </label>
+  <!-- 
+    <li *ngFor="let item of items; let i= index">
+      {{i}} member : {{item.name | json}}
+    </li>
 
-    <label 
-        tooltip="3 digits, back of your card"
-        #myTooltip="tooltip"> <!-- tooltip is the custom tooltip directive selector declear here to show and hide (tooltip is assign to the template ref variable)--> 
-        Enter your security code 
-        <span
-          (mouseover)="myTooltip.show()" 
-          (mouseout)="myTooltip.hide()"><!-- call methods from custom directive tooltip to show and hide tooltip message-->
-          (?)
-        </span>
-        <input type="text">
-      </label>
+    <ng-template ngFor [ngForOf]="items" let-item let-i="index">
+      <li>
+         {{i}}  member : {{item.name | json}}
+      </li>
+    </ng-template>
+    -->
 
-    <!-- or here is also the tooltip example that can use dynamically howmany time you want-->
-    <div 
-        tooltip="The message which is wana show"
-        #myTool="tooltip"> Hover over the message tooltip 
-        <span
-          (mouseover)="myTool.show()" 
-          (mouseout)="myTool.hide()">(!)
-        </span>
-    </div>
+    Here custom directive make by the name of myFor and myForOf 
+
+    <li *myFor="let item of items; let i= index">
+    {{i+1}} member : {{item.name | json}}
+  </li>
+
+  <ng-template myFor [myForOf]="items" let-item let-i="index">
+    <li>
+       {{i+11}}  member : {{item.name | json}}
+    </li>
+  </ng-template>
 
 
 
   </div>
 
   <pre>
-  create custome directive and set the rules/validation for credit card number in input 
-  1- automatic formate means space after every 4 digit 
-  2- 16 digit should total get rid of extra digit 
-  3- only number allow in the input 
-  4- if write later like name border should red
+  make our own ngFor directive and lets see how does it works
   </pre>
 
   `
 })
 export class AppComponent {
-  
+  items = [{
+    name: 'Mark Hoppus',
+    age: 44,
+    location: 'California'
+  },{
+    name: 'Tom Delonge',
+    age: 41,
+    location: 'California'
+  },{
+    name: 'Travis Barker',
+    age: 41,
+    location: 'California'
+  }];
+
+  constructor() {
+    setTimeout(() => {
+      this.items = [...this.items, { name: 'Matt Skiba', age: 40, location: 'California' }];//add one extra object here in item array // can't just push into array simplly because of changeDetection not work in custome directive myForOf thats way ...immutable object and add new object
+    }, 2000);
+  }
+
 }

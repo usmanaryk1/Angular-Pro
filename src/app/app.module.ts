@@ -3,14 +3,15 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 //custom directives
-import { CreditCardDirective } from './credit-card/credit-card.direvtive';
-import { TooltipDirective } from './tooltip/tooltip.directive';
+import { MyForDirective } from './my-for/my-for.directive';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreditCardDirective,
-    TooltipDirective
+    MyForDirective
+   
 
   ],
   imports: [
