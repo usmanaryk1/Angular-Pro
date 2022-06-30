@@ -1,0 +1,1 @@
+update output-eventEmitter method to change entire object
