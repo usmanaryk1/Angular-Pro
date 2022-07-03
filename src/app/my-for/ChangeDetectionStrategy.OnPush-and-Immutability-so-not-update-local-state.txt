@@ -1,0 +1,1 @@
+ChangeDetectionStrategy.OnPush and Immutability so not update local state
