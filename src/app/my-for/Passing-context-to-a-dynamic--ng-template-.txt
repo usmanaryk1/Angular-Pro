@@ -3,3 +3,4 @@ Passing context to a dynamic <ng-template>
 Passing context to a dynamic <ng-template>
 Passing context to a dynamic <ng-template>
 Passing context to a dynamic <ng-template>
+Passing context to a dynamic <ng-template>
