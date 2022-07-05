@@ -1,0 +1,1 @@
+component.ts also import ReactiveFormModule in module.ts
