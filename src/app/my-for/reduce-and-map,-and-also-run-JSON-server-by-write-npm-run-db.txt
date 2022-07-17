@@ -1,0 +1,1 @@
+reduce and map, and also run JSON server by write npm run db
