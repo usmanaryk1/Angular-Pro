@@ -1,3 +1,4 @@
 Guards with canActivateChild only parent will work by checking hard coded
 Guards with canActivateChild only parent will work by checking hard coded
 Guards with canActivateChild only parent will work by checking hard coded
+Guards with canActivateChild only parent will work by checking hard coded
