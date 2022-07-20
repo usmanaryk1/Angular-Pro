@@ -1,0 +1,1 @@
+in input and use ElementRef in custom directive to talk to the DOM node
