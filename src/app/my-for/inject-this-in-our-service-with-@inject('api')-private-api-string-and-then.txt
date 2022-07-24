@@ -1,2 +1,3 @@
 inject this in our service with @inject('api') private api:string and then
 inject this in our service with @inject('api') private api:string and then
+inject this in our service with @inject('api') private api:string and then
