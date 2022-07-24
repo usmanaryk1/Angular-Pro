@@ -1,0 +1,1 @@
+Guards with canActivateChild only parent will work by checking hard coded
