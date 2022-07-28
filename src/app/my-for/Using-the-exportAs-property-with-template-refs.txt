@@ -1,0 +1,1 @@
+Using the exportAs property with template refs
