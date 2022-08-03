@@ -1,1 +1,2 @@
 ContentChildren QueryList
+ContentChildren QueryList
