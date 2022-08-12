@@ -1,1 +1,2 @@
 ViewChild and ngAfterViewInit also include lifecycle hooks
+ViewChild and ngAfterViewInit also include lifecycle hooks
