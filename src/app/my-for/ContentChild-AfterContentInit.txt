@@ -1,3 +1,4 @@
 ContentChild AfterContentInit
 ContentChild AfterContentInit
 ContentChild AfterContentInit
+ContentChild AfterContentInit
