@@ -1,0 +1,1 @@
+some attribute, classes and invoke some native methods
