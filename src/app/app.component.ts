@@ -20,13 +20,14 @@ interface File {
   
   <div *ngFor="let file of files">
     <p>{{ file.name }}</p>
-    <p>{{ file.size | filesize }}</p> <!-- create a custome pipe(like a |date pipe etc..) to transform the size in MB because size is comig in bytes -->
+    <p>{{ file.size | filesize: ' megabytes' }}</p> <!-- set custome/default arguments 'megabytes' in filter  | filesize: 'megabytes'  watever coming from filter filesize.filter.ts extension 'MB' it will change to magabytes because of spacificity -->
   </div>
 
   </div>
 
   <pre>
-  make our own custome pipes and lets see how does it works
+  make our own custome pipes and lets see how does it works.
+  Set custome/default arguments 'megabytes' in filter  | filesize: 'megabytes'  watever coming from filter filesize.filter.ts extension 'MB' it will change to magabytes because of spacificity.
   </pre>
 
   `
