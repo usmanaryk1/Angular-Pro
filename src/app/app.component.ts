@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template:`
-  This is {{title}}.
+  <stock-inventory></stock-inventory>
   `
 })
 export class AppComponent {
