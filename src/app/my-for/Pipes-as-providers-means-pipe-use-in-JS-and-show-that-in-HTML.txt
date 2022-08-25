@@ -1,1 +1,2 @@
 Pipes as providers means pipe use in JS and show that in HTML
+Pipes as providers means pipe use in JS and show that in HTML
