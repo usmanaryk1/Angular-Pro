@@ -1,0 +1,1 @@
+Dynamic route resolves with snapshots means preload data
