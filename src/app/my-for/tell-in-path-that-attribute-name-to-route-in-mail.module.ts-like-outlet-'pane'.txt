@@ -1,0 +1,1 @@
+tell in path that attribute name to route in mail.module.ts like outlet:'pane'
