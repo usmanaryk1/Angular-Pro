@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormArray, FormGroup } from '@angular/forms';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AbstractControl, FormArray, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'stock-products',
@@ -23,7 +23,9 @@ import { FormArray, FormGroup } from '@angular/forms';
               formControlName="quantity"
             />
             <!--also need button if wana remove prodct from stock -->
-            <button type="button">Remove</button>
+            <button type="button"
+            (click)="onRemove(item, i)"
+            >Remove</button>
           </div>
         </div>
       </div>
@@ -38,4 +40,14 @@ export class StockProductsComponent {
   get stock(){
     return (this.parent.get('stock') as FormArray).controls; // for type check that this is a as FormArray
   }
+
+   //send output event to stck-Inventory in the formArray to remove
+   @Output()
+   removed:EventEmitter<any>= new EventEmitter<any>();
+ 
+   //send event to remove stoke in the formArray so we can removeAt()/splice() item in the array to remove via this output event
+   onRemove(group:AbstractControl, index:number){
+     this.removed.emit({group, index})//like {group:group, index:index}
+   }
+   
 }
