@@ -55,13 +55,21 @@ export class StockInventoryComponent {
       branch: new FormControl(''),
       code: new FormControl('')
     }),
-    selector: new FormGroup({
-      product_id: new FormControl(''),
-      quantity: new FormControl(10)
-    }),
+    selector: this.createStock({}),//create reuseable FormGroup this.FormGroup({})
     //add the value dynamically in the form array
-    stock: new FormArray([])
+    stock: new FormArray([
+        this.createStock({product_id:1 , quantity:10}),
+        this.createStock({product_id:3 , quantity:50})
+    ])
   })
+
+  //create reuseable FormGroup this.FormGroup({})
+  createStock(stock:any){
+    return new FormGroup({
+        product_id: new FormControl(parseInt(stock.product_id, 10) || ''),//not converting into interger/number ??
+        quantity: new FormControl(stock.quantity || 10)
+      })
+  }
 
   onSubmit() {
     console.log('Submit:', this.form.value);
