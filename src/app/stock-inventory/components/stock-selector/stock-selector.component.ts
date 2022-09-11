@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { Component, Input, Output ,EventEmitter} from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 
 import { Product } from '../../models/product.interface';
 
@@ -26,7 +26,8 @@ import { Product } from '../../models/product.interface';
           max="1000"
           formControlName="quantity">
 
-        <button type="button">
+        <button type="button"
+        (click)="onAdd()">
           Add stock
         </button>
         
@@ -40,4 +41,12 @@ export class StockSelectorComponent {
   
   @Input()
   products!: Product[];
+  //send output to store in in the formArray
+  @Output()
+  added:EventEmitter<any>= new EventEmitter<any>();
+
+  //send event to store stoke in the formArray so we can push item in the array to add via this output event
+  onAdd(){
+    this.added.emit((this.parent.get(['selector']) as FormArray).value)
+  }
 }
