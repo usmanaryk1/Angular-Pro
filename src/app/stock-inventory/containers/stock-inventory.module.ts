@@ -11,7 +11,8 @@ import { StockInventoryComponent } from './stock-inventory/stock-inventory.compo
     ],
     imports:[
         CommonModule,
-        ReactiveFormsModule,
+        //import ReactiveFormModule
+        ReactiveFormsModule
     ],
 //export this component so that we can use in app.component.ts
     exports:[

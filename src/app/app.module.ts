@@ -11,7 +11,8 @@ import { StockInventoryModule } from './stock-inventory/containers/stock-invento
   ],
   imports: [
     BrowserModule,
-    StockInventoryModule
+    StockInventoryModule,
+   
   ],
   providers: [],
   bootstrap: [AppComponent]
