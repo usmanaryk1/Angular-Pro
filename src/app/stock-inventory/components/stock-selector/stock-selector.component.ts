@@ -48,5 +48,12 @@ export class StockSelectorComponent {
   //send event to store stoke in the formArray so we can push item in the array to add via this output event
   onAdd(){
     this.added.emit((this.parent.get(['selector']) as FormArray).value)
+    //reset the selector form 
+    // BIG NOTE----> if use reset so we don't loose the controll like ng-valid ng-untouched ng-pristine and if patchvalue use the ng-dirty not reset to ng-pristine and others also not change so we lose the control and same in setValue use but main diff b/w patchValue (either all or some value can reset) and setValue need to give key value pair of each item in that particular formControl (all value need to be reset)
+    this.parent.get('selector')?.reset({
+      product_id:'',
+      quantity:10
+    })
+
   }
 }
