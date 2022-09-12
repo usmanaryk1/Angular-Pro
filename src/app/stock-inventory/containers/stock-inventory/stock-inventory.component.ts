@@ -27,12 +27,18 @@ import { StockInventoryService } from '../../services/stock-inventory.service';
         
         <!-- selected added in store in form array -->
         <stock-products
-          [parent]="form"
-          [mapp]="productMap"
-          [entitiess]="entities"
-          (removed)="removeStock($event)"
-          >
+        [parent]="form"
+        [mapp]="productMap"
+        [entitiess]="entities"
+        (removed)="removeStock($event)"
+        >
         </stock-products>
+        
+        <!-- make a total of all products -->
+        <div class="stock-inventory__price">
+        Total: {{total | currency:'USD':'symbol'}}
+        </div>
+        
 
         <div class="stock-inventory__buttons">
           <button 
@@ -53,6 +59,7 @@ export class StockInventoryComponent implements OnInit{
 
     productMap!: Map<number,Product>//to make entities {1:{},2:{}}
     entities!:any;
+    total!:number;
       
       constructor(private fb:FormBuilder, private stockService:StockInventoryService){}
     // There are 3 main group in this form Store , selector, and stock
@@ -95,11 +102,21 @@ export class StockInventoryComponent implements OnInit{
       this.products=products;
       // add item in the cart array
       cart.forEach(item=> this.addStock(item));
-    
+        //for initial total calcualtion call total function and pass a default value
+        this.calculateTotal(this.form.get('stock')?.value);
+        //if add stock then imidiately cahnge the total price
+      this.form.get('stock')?.valueChanges.subscribe(value=> this.calculateTotal(value))
     });
 
 
       
+  }
+  //total calculation via valuechanges
+  calculateTotal(value: Item[]){
+    const total =value.reduce((pre,next)=> {
+        return pre + (next.quantity * this.entities[next.product_id].price)
+    },0)
+    this.total = total;
   }
   //create reuseable FormGroup this.FormGroup({})
   createStock(stock:any){

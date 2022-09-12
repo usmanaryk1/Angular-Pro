@@ -51,13 +51,13 @@ export class StockProductsComponent {
   // get the product name and show via call method
   getProduct(id:number){
     //call too much time ???
-      console.log("this.mapp,this.mapp.get(id)",this.mapp,this.mapp.get(id));
+      // console.log("this.mapp,this.mapp.get(id)",this.mapp,this.mapp.get(id));
     return this.mapp.get(id)
   }
   //or
   getProductentity(id:number){
     //call too much time ???
-      console.log("this.entitiess[id]",this.entitiess,this.entitiess[id]);
+      // console.log("this.entitiess[id]",this.entitiess,this.entitiess[id]);
     return this.entitiess[id];
   }
 
