@@ -1,6 +1,9 @@
-import { Component } from '@angular/core';
+import { Component ,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { Product } from '../../models/product.interface';
+import { forkJoin } from 'rxjs';
+import { Item, Product } from '../../models/product.interface';
+
+import { StockInventoryService } from '../../services/stock-inventory.service';
 
 @Component({
   selector: 'stock-inventory',
@@ -25,6 +28,8 @@ import { Product } from '../../models/product.interface';
         <!-- selected added in store in form array -->
         <stock-products
           [parent]="form"
+          [mapp]="productMap"
+          [entitiess]="entities"
           (removed)="removeStock($event)"
           >
         </stock-products>
@@ -43,16 +48,13 @@ import { Product } from '../../models/product.interface';
     </div>
   `
 })
-export class StockInventoryComponent {
-    products: Product[] = [
-        { "id": 1, "price": 2800, "name": "MacBook Pro" },
-        { "id": 2, "price": 50, "name": "USB-C Adaptor" },
-        { "id": 3, "price": 400, "name": "iPod" },
-        { "id": 4, "price": 900, "name": "iPhone" },
-        { "id": 5, "price": 600, "name": "Apple Watch" },
-      ];
+export class StockInventoryComponent implements OnInit{
+    products!: Product[];
+
+    productMap!: Map<number,Product>//to make entities {1:{},2:{}}
+    entities!:any;
       
-      constructor(private fb:FormBuilder){}
+      constructor(private fb:FormBuilder, private stockService:StockInventoryService){}
     // There are 3 main group in this form Store , selector, and stock
   form = this.fb.group({
     store: this.fb.group({
@@ -61,12 +63,44 @@ export class StockInventoryComponent {
     }),
     selector: this.createStock({}),//create reuseable FormGroup this.FormGroup({})
     //add the value dynamically in the form array
-    stock: this.fb.array([
-        this.createStock({product_id:1 , quantity:10}),
-        this.createStock({product_id:3 , quantity:50})
-    ])
+    stock: this.fb.array([])
   })
 
+  ngOnInit(){
+
+    //--------also run json server by write npm run db -------
+      const cart = this.stockService.getCartItems();
+      const products = this.stockService.getProducts();
+
+      forkJoin([cart,products])
+      .subscribe(([cart, products]:[cart:Item[], products:Product[]]) => {
+       console.log(cart,products);
+
+      //two methods use for make entities any one can use from both (mapp or entitiess)
+      // 1st one
+       const myMap= products.map<[number, Product]>((product)=> [product.id, product])
+      console.log("myMap",myMap);
+      this.productMap = new Map<number, Product>(myMap); // { 1:{} }//send it to stock-product via [map]="productMap" and @input map so can show the name of item 
+      console.log("this.productMap",this.productMap);
+      //or 2nd one
+       this.entities = products.reduce((entities, products:Product)=>{
+        return {
+            ...entities,
+            [products.id]:products
+        };
+        },{})
+        console.log("entities",this.entities);
+    
+        // value for stock-selector
+      this.products=products;
+      // add item in the cart array
+      cart.forEach(item=> this.addStock(item));
+    
+    });
+
+
+      
+  }
   //create reuseable FormGroup this.FormGroup({})
   createStock(stock:any){
     return this.fb.group({
