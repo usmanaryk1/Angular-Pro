@@ -1,5 +1,5 @@
 import { Component ,OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { forkJoin } from 'rxjs';
 import { Item, Product } from '../../models/product.interface';
 
@@ -65,8 +65,8 @@ export class StockInventoryComponent implements OnInit{
     // There are 3 main group in this form Store , selector, and stock
   form = this.fb.group({
     store: this.fb.group({
-      branch: '',
-      code: ''
+      branch: ['', Validators.required], //requird validator use here for the validation
+      code: ['', Validators.required] //requird validator use here for the validation
     }),
     selector: this.createStock({}),//create reuseable FormGroup this.FormGroup({})
     //add the value dynamically in the form array
