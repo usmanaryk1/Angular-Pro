@@ -25,6 +25,13 @@ import { Product } from '../../models/product.interface';
           min="10"
           max="1000"
           formControlName="quantity">
+          
+          <!-- reuseable component -->
+          <stock-counter
+          [step]="10"
+          [min]="10"
+          [max]="1000"
+          ></stock-counter>
 
         <button type="button"
         (click)="onAdd()">
