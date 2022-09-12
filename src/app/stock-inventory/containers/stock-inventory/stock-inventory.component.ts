@@ -4,6 +4,7 @@ import { forkJoin } from 'rxjs';
 import { Item, Product } from '../../models/product.interface';
 
 import { StockInventoryService } from '../../services/stock-inventory.service';
+import { StockValidators } from './stock-inventory.validators';
 
 @Component({
   selector: 'stock-inventory',
@@ -65,7 +66,7 @@ export class StockInventoryComponent implements OnInit{
     // There are 3 main group in this form Store , selector, and stock
   form = this.fb.group({
     store: this.fb.group({
-      branch: ['', Validators.required], //requird validator use here for the validation
+      branch: ['', [Validators.required, StockValidators.checkBranch ]], // create StockValidators class and create a method checkBranch//requird and custom validation separate file
       code: ['', Validators.required] //requird validator use here for the validation
     }),
     selector: this.createStock({}),//create reuseable FormGroup this.FormGroup({})
