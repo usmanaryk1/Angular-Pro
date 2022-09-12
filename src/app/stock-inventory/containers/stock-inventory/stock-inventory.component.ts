@@ -1,6 +1,7 @@
 import { Component ,OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators, AbstractControl } from '@angular/forms';
 import { forkJoin } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Item, Product } from '../../models/product.interface';
 
 import { StockInventoryService } from '../../services/stock-inventory.service';
@@ -65,8 +66,12 @@ export class StockInventoryComponent implements OnInit{
       constructor(private fb:FormBuilder, private stockService:StockInventoryService){}
     // There are 3 main group in this form Store , selector, and stock
   form = this.fb.group({
+
     store: this.fb.group({
-      branch: ['', [Validators.required, StockValidators.checkBranch ]], // create StockValidators class and create a method checkBranch//requird and custom validation separate file
+      branch: ['', //initial value
+              [Validators.required, StockValidators.checkBranch ], //synchronous validator // create StockValidators class and create a method checkBranch//requird and custom validation separate file
+              [this.validateBranch.bind(this)] //Asynchronous validator //check from API service weather branch is exist in server database
+              ], 
       code: ['', Validators.required] //requird validator use here for the validation
     }),
     selector: this.createStock({}),//create reuseable FormGroup this.FormGroup({})
@@ -112,6 +117,14 @@ export class StockInventoryComponent implements OnInit{
 
       
   }
+
+  //check weather branch exist or not in server through service call API asynchronous validator
+  validateBranch(control: AbstractControl) {
+    return this.stockService
+      .checkBranchId(control.value).pipe(
+      map((response: boolean) => response ? null : { unknownBranch: true })
+    )}
+  
   //total calculation via valuechanges
   calculateTotal(value: Item[]){
     const total =value.reduce((pre,next)=> {

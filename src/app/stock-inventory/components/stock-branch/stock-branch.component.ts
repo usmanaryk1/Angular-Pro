@@ -21,6 +21,13 @@ import { FormGroup } from '@angular/forms';
           *ngIf="invalid">
           Invalid branch code: 1 letter, 3 numbers
         </div>
+        <!-- Asynchronoous validator check branch id from database through service API call and give error if not exist back here --> 
+        <div
+          class="error" 
+          *ngIf="unknown">
+          Unknown branch, please check the ID
+        </div>
+
         <input 
           type="text" 
           placeholder="Manager Code"
@@ -37,6 +44,14 @@ import { FormGroup } from '@angular/forms';
 export class StockBranchComponent {
   @Input()
   parent!: FormGroup;
+
+  //Asynchronous validator check branch id through service API call if not exist in database show error
+  get unknown() {
+    return (
+      this.parent.get('store.branch')?.hasError('unknownBranch') &&
+      this.parent.get('store.branch')?.dirty
+    );
+  }
 
   get invalid() {
     return (

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from "@angular/common/http";
 import { catchError, map, tap} from "rxjs/operators";
 
 // import 'rxjs/add/operator/map';
@@ -37,6 +37,29 @@ export class StockInventoryService {
       // .map((response: Response) => response.json())
       // .catch((error: any) => Observable.throw(error.json()));
   )}
+
+
+    //Asynchronous validator API call //check online branch id from database weather branch exist or not
+    checkBranchId(id: string): Observable<boolean> {
+      //NOTE---> this is not working URLSearchParams();
+      // // let search = new URLSearchParams();
+      // // search.set('id', id);
+      // console.log();
+  
+      
+      // id = id.trim();
+      // Add safe, URL encoded search parameter if there is a search term
+      const search = id ?{ params: new HttpParams().set('id', id) } : {};
+      
+      return this.http.get(this.api +'/branches', search )
+      .pipe(
+            // tap(see=> console.log("see service,options ",see, search)),
+          map((response: any) => !!response.length),// return boolean if exist branch id in database 
+            // tap(see => console.log("see AFTER ", see)),
+          catchError(err=>this.handleError(err))
+        );
+  }
+
 
 
 
