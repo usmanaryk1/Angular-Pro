@@ -72,7 +72,7 @@ export class StockInventoryComponent implements OnInit{
     selector: this.createStock({}),//create reuseable FormGroup this.FormGroup({})
     //add the value dynamically in the form array
     stock: this.fb.array([])
-  })
+  },{ validator: StockValidators.checkStockExists })//its a root formGroup not a branch //option/extra validation of all formGroup here check weater selected product is already exist in cart then not add dublicate or twice
 
   ngOnInit(){
 

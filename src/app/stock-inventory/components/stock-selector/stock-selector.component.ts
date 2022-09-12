@@ -26,11 +26,20 @@ import { Product } from '../../models/product.interface';
           [max]="1000"
           formControlName="quantity"
           ></stock-counter>
-
+      <!-- if selected stock already exist in store then disable button and if not anything selected then disable too  -->
         <button type="button"
+        [disabled]="stockExists || notSelected"
         (click)="onAdd()">
           Add stock
         </button>
+
+        <!-- if selected stock already exist in store then show error -->
+        <div
+          class="stock-selector__error"
+          *ngIf="stockExists">
+          Item already exists in the stock
+        </div>
+
         
       </div>
     </div>
@@ -45,6 +54,23 @@ export class StockSelectorComponent {
   //send output to store in in the formArray
   @Output()
   added:EventEmitter<any>= new EventEmitter<any>();
+
+  //if not anything selected then disable the button 
+  get notSelected() {
+    return (
+      !this.parent.get('selector.product_id')?.value
+    );
+  }
+
+  //cehck the stock exist and show error message and also disable the button
+  get stockExists() {
+    return (
+      this.parent.hasError('stockExists') && // check already exist
+      this.parent.get('selector.product_id')?.dirty //and changed the selector also or chosed something too then show error
+    );
+  }
+
+
 
   //send event to store stoke in the formArray so we can push item in the array to add via this output event
   onAdd(){
