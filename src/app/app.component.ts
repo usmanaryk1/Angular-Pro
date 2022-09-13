@@ -26,11 +26,11 @@ import { filter, map, tap } from 'rxjs/operators';
 export class AppComponent implements OnInit {
   title = 'Routing setup start from here see in console';
   constructor(private router: Router) {
-    this.router.events
-      .pipe(
-      filter((event) => event instanceof NavigationEnd),// filter by navigationEnd then only that navigationEnd event triger
-      // tap(event=> console.log("see only navigationEnd event will filtered" , event))
-      ).subscribe(events=>console.log("only navigationEnd fired",events))//whenever the router change event triger
+    // this.router.events
+    //   .pipe(
+    //   filter((event) => event instanceof NavigationEnd),// filter by navigationEnd then only that navigationEnd event triger
+    //   // tap(event=> console.log("see only navigationEnd event will filtered" , event))
+    //   ).subscribe(events=>console.log("only navigationEnd fired",events))//whenever the router change event triger
     
   }
   ngOnInit() {}
