@@ -21,7 +21,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     HttpClientModule,
     MailModule,
-    RouterModule.forRoot(ROUTES, { enableTracing: true })//tracing is for debuging that where is the router is navigating show everythis in console
+    RouterModule.forRoot(ROUTES)//{ enableTracing: true } tracing is for debuging that where is the router is navigating show everythis in console
   ],
   bootstrap: [
     AppComponent
