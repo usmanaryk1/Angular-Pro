@@ -11,8 +11,13 @@ import { filter, map, tap } from 'rxjs/operators';
       </header>
       <div class="app__content">
         <nav>
-          <a routerLink="folder/inbox" routerLinkActive="active"> Inbox </a>
-          <a routerLink="folder/trash" routerLinkActive="active"> Trash </a>
+        <!-- for destory auxiliary outlets pane we need some changing here in primary outlets from routerLink="folder/inbox" to [routerLink]="[{outlets:{ primary: 'folder/inbox', pane:null } }]" so pane outlet will be cleared-->
+          <a 
+          [routerLink]="[{outlets:{ primary: 'folder/inbox', pane:null } }]" 
+          routerLinkActive="active"> Inbox </a>
+          <a 
+          [routerLink]="[{outlets:{ primary: 'folder/trash', pane:null } }]" 
+          routerLinkActive="active"> Trash </a>
         </nav>
 
         <mail-app></mail-app>
@@ -28,7 +33,6 @@ export class AppComponent implements OnInit {
     //   filter((event) => event instanceof NavigationEnd),// filter by navigationEnd then only that navigationEnd event triger
     //   // tap(event=> console.log("see only navigationEnd event will filtered" , event))
     //   ).subscribe(events=>console.log("only navigationEnd fired",events))//whenever the router change event triger
-    
   }
   ngOnInit() {}
 }

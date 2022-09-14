@@ -15,10 +15,11 @@ import { Mail } from '../../models/mail.interface';
   <!-- routerLinkActive="active" for styling purpose in scss left border slightly purpul -->
   
   <!--alternate way also through js api router.navigate() instead of [routerLink]="" but routerLinkActive will not work--> 
-  <!-- [routerLink]="['', { outlets: { pane:['message', message.id]}}]"
-    routerLinkActive="active" -->
+  <!-- Back to routerLink so routerLinkActive can use and now we will destory this auxiliary route by giving value pane:null in parent router-outlet routerLink in app.component.ts
+  (click)="navigateToMessage()" -->
   <a 
-  (click)="navigateToMessage()"
+  [routerLink]="['', { outlets: { pane:['message', message.id]}}]"
+  routerLinkActive="active"
     class="mail-item">
       <h3>
         {{ message.from }}
@@ -33,10 +34,10 @@ export class MailItemComponent {
   message!: Mail;
 constructor(private router:Router){
 }
-navigateToMessage(){
-  //Auxiliary Navigation API //navigate through javascript api
-  this.router.navigate(['', { outlets: { pane:['message', this.message.id]}}])
+// navigateToMessage(){
+//   //Auxiliary Navigation API //navigate through javascript api
+//   this.router.navigate(['', { outlets: { pane:['message', this.message.id]}}])
 
-}
+// }
 
 }
