@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
   template: `
   <!-- primary outlet -->
     <div class="mail">
+
+    <h1>Activated parent by writing on url hard coded loacalhost:4200/mail if use canActivateChild guard</h1>
     <router-outlet
     (activate)="onActivate($event)"
     (deactivate)="onDeactivate($event)">

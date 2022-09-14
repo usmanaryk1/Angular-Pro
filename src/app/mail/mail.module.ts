@@ -17,8 +17,8 @@ export const ROUTES: Routes = [
   {
     path:'mail',
     component: MailAppComponent,
-    //check if islogedIn then navigate 
-    canActivate:[AuthGuard],
+    //check if islogedIn then navigate to only parent by writhin hard coded localhost:4200/mail to check and child will be protected
+    canActivateChild:[AuthGuard],
     //everything underneeth /mail component in chiledren
     children:[
   //primary router-outlet
