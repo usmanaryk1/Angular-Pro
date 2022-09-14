@@ -13,6 +13,11 @@ import { MailViewComponent } from './components/mail-view/mail-view.component';
 import { MailViewResolve } from './components/mail-view/mail-view.resolve';
 
 export const ROUTES: Routes = [
+  {
+    path:'mail',
+    component: MailAppComponent,
+    //everything underneeth /mail component in chiledren
+    children:[
   //primary router-outlet
   { path: 'folder/:name', 
   component: MailFolderComponent,
@@ -37,6 +42,8 @@ export const ROUTES: Routes = [
       message:MailViewResolve
     }
   }
+]
+}
 
 ];
 

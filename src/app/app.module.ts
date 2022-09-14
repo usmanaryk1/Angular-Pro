@@ -10,7 +10,13 @@ import { MailModule } from './mail/mail.module';
 import { AppComponent } from './app.component';
 
 export const ROUTES: Routes = [
-  { path: '**', redirectTo: 'folder/inbox' }
+   //lazzy Loading 
+   {
+    path: 'dashboard',
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+  }, 
+
+  { path: '**', redirectTo: 'mail/folder/inbox' }
 ];
 
 @NgModule({
@@ -21,6 +27,7 @@ export const ROUTES: Routes = [
     BrowserModule,
     HttpClientModule,
     MailModule,
+  
     RouterModule.forRoot(ROUTES)//{ enableTracing: true } tracing is for debuging that where is the router is navigating show everythis in console
   ],
   bootstrap: [

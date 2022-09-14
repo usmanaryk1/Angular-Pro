@@ -18,7 +18,7 @@ import { Mail } from '../../models/mail.interface';
   <!-- Back to routerLink so routerLinkActive can use and now we will destory this auxiliary route by giving value pane:null in parent router-outlet routerLink in app.component.ts
   (click)="navigateToMessage()" -->
   <a 
-  [routerLink]="['', { outlets: { pane:['message', message.id]}}]"
+  [routerLink]="['/mail', { outlets: { pane:['message', message.id]}}]"
   routerLinkActive="active"
     class="mail-item">
       <h3>
