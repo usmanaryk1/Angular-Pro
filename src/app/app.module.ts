@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 //import guards
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
+import { AuthModule } from './auth/auth.module';
 
 
 export const ROUTES: Routes = [
@@ -33,8 +34,9 @@ export const ROUTES: Routes = [
     BrowserModule,
     HttpClientModule,
     MailModule,
+    AuthModule,
   
-    RouterModule.forRoot(ROUTES )
+    RouterModule.forRoot(ROUTES)
   ],
   providers:[ 
     AuthService,

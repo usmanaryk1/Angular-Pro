@@ -11,11 +11,14 @@ import { MailFolderResolve } from './containers/mail-folder/mail-folder.resolve'
 import { MailService } from './mail.service';
 import { MailViewComponent } from './components/mail-view/mail-view.component';
 import { MailViewResolve } from './components/mail-view/mail-view.resolve';
+import { AuthGuard } from '../auth/auth.guard';
 
 export const ROUTES: Routes = [
   {
     path:'mail',
     component: MailAppComponent,
+    //check if islogedIn then navigate 
+    canActivate:[AuthGuard],
     //everything underneeth /mail component in chiledren
     children:[
   //primary router-outlet
@@ -63,7 +66,8 @@ export const ROUTES: Routes = [
     MailService,
     MailFolderResolve,
     //resolver of auxiliary pane outlets
-    MailViewResolve
+    MailViewResolve,
+    
   ],
   exports: [
     MailAppComponent
