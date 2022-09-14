@@ -23,4 +23,13 @@ export class MailService {
       catchError((error: any) => throwError(error.json()))
       );
   }
+
+  getMessage(id: string): Observable<any> {
+     return this.http
+      .get(`${this.api}/messages/${id}`)
+      .pipe(tap(response => console.log("resolver service", response)),
+      catchError((error: any) => throwError(error.json()))
+      );
+  }
+
 }

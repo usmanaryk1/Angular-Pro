@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Mail } from '../../models/mail.interface';
 
 @Component({
   selector: 'mail-view',
   styleUrls: ['mail-view.component.scss'],
   template: `
-    <div class="mail-view">
-      I am a message!
-    </div>
+  <div class="mail-view">
+  <h2>{{ (message$ | async)?.from }}</h2>
+  <p>{{ (message$ | async)?.full }}</p>
+</div>
   `
 })
-export class MailViewComponent {}
+export class MailViewComponent {
+  message$: Observable<Mail> = this.route.data.pipe(map(x=> x.message));
+  constructor(private route: ActivatedRoute) {}
+}

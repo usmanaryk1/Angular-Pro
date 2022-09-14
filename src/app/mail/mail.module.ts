@@ -10,6 +10,7 @@ import { MailAppComponent } from './components/mail-app/mail-app.component';
 import { MailFolderResolve } from './containers/mail-folder/mail-folder.resolve';
 import { MailService } from './mail.service';
 import { MailViewComponent } from './components/mail-view/mail-view.component';
+import { MailViewResolve } from './components/mail-view/mail-view.resolve';
 
 export const ROUTES: Routes = [
   //primary router-outlet
@@ -26,12 +27,15 @@ export const ROUTES: Routes = [
   //auxiliary name router-outlet
   // 2nd router outlet also use in mail-app and give name like name='pane' and tell here that is a 2nd outlet render with this name like outlet:'pane'
 
-  //dynamically route detail render in this commit see in mail-item.component.ts but message detail not show in this commit
   //alternate way also through js api router.navigate() instead of [routerLink]=""
+  //detail will be show here in this commit of detail message with onother resolver in auxiliaary outlets 
   {
     path: 'message/:id', 
     component: MailViewComponent,
-    outlet:'pane'
+    outlet:'pane',
+    resolve:{
+      message:MailViewResolve
+    }
   }
 
 ];
@@ -45,12 +49,14 @@ export const ROUTES: Routes = [
     MailFolderComponent,
     MailAppComponent,
     MailItemComponent,
-    MailViewComponent
+    MailViewComponent,
   ],
   //provide the service and resolver
   providers: [
     MailService,
-    MailFolderResolve
+    MailFolderResolve,
+    //resolver of auxiliary pane outlets
+    MailViewResolve
   ],
   exports: [
     MailAppComponent
