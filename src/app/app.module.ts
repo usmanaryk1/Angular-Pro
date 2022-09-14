@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 //http module
 import { HttpClientModule } from '@angular/common/http';
 
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes , PreloadAllModules } from '@angular/router';
 
 import { MailModule } from './mail/mail.module';
 
@@ -28,7 +28,7 @@ export const ROUTES: Routes = [
     HttpClientModule,
     MailModule,
   
-    RouterModule.forRoot(ROUTES)//{ enableTracing: true } tracing is for debuging that where is the router is navigating show everythis in console
+    RouterModule.forRoot(ROUTES , { preloadingStrategy : PreloadAllModules } )//preload all our modules even it is lazyload //{ enableTracing: true } tracing is for debuging that where is the router is navigating show everythis in console
   ],
   bootstrap: [
     AppComponent
