@@ -14,10 +14,12 @@ import { filter, map, tap } from 'rxjs/operators';
         <!-- for destory auxiliary outlets pane we need some changing here in primary outlets from routerLink="folder/inbox" to [routerLink]="[{outlets:{ primary: 'folder/inbox', pane:null } }]" so pane outlet will be cleared-->
           <a 
           [routerLink]="['/mail' ,{outlets:{ primary: 'folder/inbox', pane:null } }]" 
-          routerLinkActive="active"> Inbox </a>
+          routerLinkActive="active"
+          > Inbox </a>
           <a 
           [routerLink]="['/mail', {outlets:{ primary: 'folder/trash', pane:null } }]" 
-          routerLinkActive="active"> Trash </a>
+          routerLinkActive="active"
+          > Trash </a>
           <a 
           [routerLink]="['/dashboard']" 
           routerLinkActive="active"> Dashboard </a>
