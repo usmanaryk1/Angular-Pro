@@ -4,10 +4,17 @@ import { Component } from '@angular/core';
   selector: 'mail-app',
   styleUrls: ['mail-app.component.scss'],
   template: `
+  <!-- primary outlet -->
     <div class="mail">
-      <router-outlet
-        (activate)="onActivate($event)"
-        (deactivate)="onDeactivate($event)">
+    <router-outlet
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)">
+    </router-outlet>
+    </div>
+
+  <!-- auxiliary outlet diff with name-->
+    <div class="mail">
+      <router-outlet name="pane">
       </router-outlet>
     </div>
   `

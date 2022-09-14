@@ -9,8 +9,10 @@ import { MailAppComponent } from './components/mail-app/mail-app.component';
 //resolver preloading data
 import { MailFolderResolve } from './containers/mail-folder/mail-folder.resolve';
 import { MailService } from './mail.service';
+import { MailViewComponent } from './components/mail-view/mail-view.component';
 
 export const ROUTES: Routes = [
+  //primary router-outlet
   { path: 'folder/:name', 
   component: MailFolderComponent,
   // resolve preload data before you have navigated to a particular routed component
@@ -20,7 +22,16 @@ export const ROUTES: Routes = [
   resolve: {//preloading data called resolver and also can use guards alternativlly to prefetch data like in ngrx store
     messages: MailFolderResolve // property name is message and value is a MailFolderResolve .ts file where resolver call the service for the data
   }
-}
+},
+  //auxiliary name router-outlet
+  // 2nd router outlet also use in mail-app and give name like name='pane' and tell here that is a 2nd outlet render with this name like outlet:'pane'
+  //dynamically route detail render in next commit so for this time to checking purpose write hard coded in url http://localhost:4200/folder/inbox(pane:message/1)
+  {
+    path: 'message/:id', 
+    component: MailViewComponent,
+    outlet:'pane'
+  }
+
 ];
 
 @NgModule({
@@ -31,7 +42,8 @@ export const ROUTES: Routes = [
   declarations: [
     MailFolderComponent,
     MailAppComponent,
-    MailItemComponent
+    MailItemComponent,
+    MailViewComponent
   ],
   //provide the service and resolver
   providers: [
