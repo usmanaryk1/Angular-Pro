@@ -13,9 +13,6 @@ import { filter, map, tap } from 'rxjs/operators';
         <nav>
           <a routerLink="folder/inbox" routerLinkActive="active"> Inbox </a>
           <a routerLink="folder/trash" routerLinkActive="active"> Trash </a>
-          <a>
-            {{ title }}
-          </a>
         </nav>
 
         <mail-app></mail-app>
