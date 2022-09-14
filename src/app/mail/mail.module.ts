@@ -12,6 +12,7 @@ import { MailService } from './mail.service';
 import { MailViewComponent } from './components/mail-view/mail-view.component';
 import { MailViewResolve } from './components/mail-view/mail-view.resolve';
 import { AuthGuard } from '../auth/auth.guard';
+import { MailViewGuard } from './components/mail-view/mail-view.guard';
 
 export const ROUTES: Routes = [
   {
@@ -40,6 +41,8 @@ export const ROUTES: Routes = [
   {
     path: 'message/:id', 
     component: MailViewComponent,
+    //use canDeActivate for accidently leave or prevent to leave without unsaved changes
+    canDeactivate:[MailViewGuard],
     outlet:'pane',
     resolve:{
       message:MailViewResolve
@@ -67,6 +70,8 @@ export const ROUTES: Routes = [
     MailFolderResolve,
     //resolver of auxiliary pane outlets
     MailViewResolve,
+    // canDeActivate guard use cannot leave without permission or after save can leave
+    MailViewGuard
     
   ],
   exports: [

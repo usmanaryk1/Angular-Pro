@@ -23,7 +23,8 @@ export class AuthGuard implements CanLoad, CanActivate , CanActivateChild {
   
   //Activated parent by writing on url hard coded loacalhost:4200/mail if use canActivateChild guard
   canActivateChild(){
-    return false;
+    // return false;
+    return true;
   }
   
 }

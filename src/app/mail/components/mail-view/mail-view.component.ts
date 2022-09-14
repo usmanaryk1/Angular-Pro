@@ -12,9 +12,11 @@ import { Mail } from '../../models/mail.interface';
     <h2>{{ (message$ | async)?.from }}</h2>
     <p>{{ (message$ | async)?.full }}</p>
   </div>
+
+  <!-- canDeActivate use so form which we fill prevent to leave the form accidenty or cannot leave form without save or permission to leave -->
   <div class="mail-reply">
     <textarea
-      (change)="updateReply('$event.target.value')"
+      (change)="updateReply($event)"
       placeholder="Type your reply..."
       [value]="reply">
     </textarea>
@@ -22,25 +24,32 @@ import { Mail } from '../../models/mail.interface';
       Send
     </button>
   </div>
+
   `
 })
 export class MailViewComponent {
   reply = '';
   message$: Observable<Mail> = this.route.data.pipe(map(x=> x.message));
 
+  // take a property name hasUnsavedChanges to check for deactivate guard 
+  hasUnsavedChanges:boolean= false;
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.route.params.subscribe(() => {
-      this.reply = '';
+      this.reply = ''; // reset the message textarea empty when navigate to somewhere else
+      this.hasUnsavedChanges=false;
     });
   }
 
-  updateReply(value: string) {
-    this.reply = value;
+  updateReply(value: Event) {
+    this.reply = (value.target as HTMLInputElement).value;
+    this.hasUnsavedChanges=true;
   }
 
   sendReply() {
     console.log('Sent!', this.reply);
+    this.hasUnsavedChanges=false;
   }
 }
