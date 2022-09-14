@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Mail } from '../../models/mail.interface';
 
@@ -12,9 +13,12 @@ import { Mail } from '../../models/mail.interface';
   <!-- [routerLink]="['', { outlets:{ pane: 2nd value is oject (in multi outlets case) tell which router to navigate ]" -->
   <!-- [routerLink]="['', { outlets:{ pane: ['message', message.id] 3rd argument of the pane is the path to navigate  ]" -->
   <!-- routerLinkActive="active" for styling purpose in scss left border slightly purpul -->
-    <a 
-    [routerLink]="['', { outlets: { pane:['message', message.id]}}]"
-    routerLinkActive="active"
+  
+  <!--alternate way also through js api router.navigate() instead of [routerLink]="" but routerLinkActive will not work--> 
+  <!-- [routerLink]="['', { outlets: { pane:['message', message.id]}}]"
+    routerLinkActive="active" -->
+  <a 
+  (click)="navigateToMessage()"
     class="mail-item">
       <h3>
         {{ message.from }}
@@ -27,4 +31,12 @@ import { Mail } from '../../models/mail.interface';
 export class MailItemComponent {
   @Input()
   message!: Mail;
+constructor(private router:Router){
+}
+navigateToMessage(){
+  //Auxiliary Navigation API //navigate through javascript api
+  this.router.navigate(['', { outlets: { pane:['message', this.message.id]}}])
+
+}
+
 }

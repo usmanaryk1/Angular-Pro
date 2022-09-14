@@ -25,7 +25,9 @@ export const ROUTES: Routes = [
 },
   //auxiliary name router-outlet
   // 2nd router outlet also use in mail-app and give name like name='pane' and tell here that is a 2nd outlet render with this name like outlet:'pane'
+
   //dynamically route detail render in this commit see in mail-item.component.ts but message detail not show in this commit
+  //alternate way also through js api router.navigate() instead of [routerLink]=""
   {
     path: 'message/:id', 
     component: MailViewComponent,
