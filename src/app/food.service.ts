@@ -3,6 +3,8 @@ import { Observable, throwError } from 'rxjs';
 import { tap , catchError} from 'rxjs/operators';
 
 import { HttpClient } from "@angular/common/http";
+//import InjectionToken alias of 'api'
+import { API_TOKEN } from './token';
 
 
 @Injectable()
@@ -15,7 +17,8 @@ export class FoodService {
   constructor(
     private http:HttpClient,
     // inject our api with @decarator
-    @Inject('api') private api: string, //useValue provide string type DI token here
+    //previous that was hard coded now it is a injectiontoken alias/instence of 'api'
+    @Inject(API_TOKEN) private api: string, //useValue provide string type DI token here
   ) {}
 
   getFood(): Observable<any> {

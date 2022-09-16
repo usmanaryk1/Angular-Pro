@@ -8,6 +8,8 @@ import { DrinkViewerComponent } from './containers/drink-viewer.component';
 import { SideViewerComponent } from './containers/side-viewer.component';
 
 import { AppComponent } from './app.component';
+//import InjectionToken alias of 'api'
+import { API_TOKEN } from './token';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,10 @@ import { AppComponent } from './app.component';
   //providers and useValue
   //Use the Value Provider useValue, when you want to provide a simple value.The Angular will injects whatever provided in the useValue as it is.providers :[ {provide:'USE_FAKE', useValue: true}] in service constructor(@Inject('USE_FAKE') public useFake: string) {}
   //provide is then registering(means setup global injectable) the string token('api') and saying when we actually requested so gives us a value of api/pizzas so this is allows us to configure things at the root directory which we allows us to injecting to our services to all components   
-  providers: [ {provide: 'api', useValue:'http://localhost:3000/pizzas'}]
+  providers: [ 
+    {provide: API_TOKEN, useValue:'http://localhost:3000/pizzas'},
+    // {provide: 'api', useValue:'http://localhost:3000/pizzaszzz'},//gives error this is hapening just because of naming conflict(we give name both of then as 'api') so we use injectionToken which is allows us to pass a string into the new instence of injection token
+]
 
 //https://www.tektutorialshub.com/angular/angular-providers/ for detail of DI Token
 //How to register dependencies using the Angular Providers
