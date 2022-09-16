@@ -3,28 +3,25 @@ import { Observable, throwError } from 'rxjs';
 import { tap , catchError} from 'rxjs/operators';
 
 import { HttpClient } from "@angular/common/http";
-//import InjectionToken alias of 'api'
-import { API_TOKEN } from './token';
 
 
 @Injectable()
 export class FoodService {
 
-//use useValue in provider { provide: 'api', useValue: 'http://localhost:3000/pizzas' } so our whole application will consume this by name api which provide in app.module.ts in providers:[ ]  so there is 4 different types of providers total like one use here useValue we will see others 3 in next commits
-// inject useValue provide string type DI token in constructor to use it as DI
-// @Inject('api') private api: string
-
+// 2.3-Factory Provider: useFactory //We usually use the useFactory when we want to return an object based on a certain condition. The Factory Provider useFactory expects us to provide a function. It invokes the function and injects the returned value. We can also add optional arguments to the factory function using the deps array. The deps array specifies how to inject the arguments. providers: [ { provide: LoggerService, useClass: LoggerService },{ provide: 'USE_FAKE', useValue: true },{provide: ProductService,useFactory: (USE_FAKE, LoggerService) =>USE_FAKE ? new FakeProductService() : new ProductService(LoggerService),deps: ['USE_FAKE', LoggerService]}]
   constructor(
     private http:HttpClient,
-    // inject our api with @decarator
-    //previous that was hard coded now it is a injectiontoken alias/instence of 'api'
-    @Inject(API_TOKEN) private api: string, //useValue provide string type DI token here
-  ) {}
+    //dynamically injuct a injuction @Inject() from component provider useFactory
+    @Inject(String) private api:string,//comes from useFactory from individually component dymanically like /drinks or /pizzas or /sizes //useFactroy allow us to dynamically pass our api in (in service this.api)  which we then be use of new instence of our FoodService is actually given 
+    ) {
+      console.log("this.api",this.api);
+      
+    }
 
   getFood(): Observable<any> {
     return this.http.get(this.api)
     .pipe(
-      tap(response => console.log("service",response)),
+      tap(response => console.table(response)),
       catchError((error: any) => throwError(error))
     )
   }

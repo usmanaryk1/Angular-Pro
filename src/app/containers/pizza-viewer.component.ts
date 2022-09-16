@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -8,13 +9,24 @@ interface Pizza {
   price: number
 }
 
+export function pizzasFactory(httpClient:any){//if wanna create dynamically intence each time use useFactory
+  //useFactory use if conditally service or anything wana return   
+  return new FoodService(httpClient, 'http://localhost:3000/pizzas')
+}
+
 @Component({
   selector: 'pizza-viewer',
   //here we have useClass meand our own providers in the component usually its proveide in app.module.ts
   providers: [
-    // FoodService, // this is a shorthand syntax of {provide:FoodService , useClass:FoodService} use one only if both name are same like
-    {provide:FoodService , useClass:FoodService}//for moke/fake api we use that useClass for testing purpose etc..
-  ],
+    {provide:FoodService ,
+      //pass a HttpClient as value and make availabel inside useFactory function
+       useFactory:pizzasFactory, // it is use to compatibale a head of time (AOT) of angualr compiler
+       deps:[ //deps is short form of array of dependency
+        HttpClient //up we instanciate our http and pass a string then
+       ]
+      
+      }
+     ],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
