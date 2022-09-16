@@ -2,11 +2,21 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  styleUrls: ['./app.component.scss'],
-  template:`
-  This is {{title}}.
+  styles: [`
+    pizza-viewer,
+    side-viewer,
+    drink-viewer {
+      display: block;
+      border-bottom: 2px solid #eee;
+      padding: 20px 0;
+    }
+  `],
+  template: `
+    <div>
+      <pizza-viewer></pizza-viewer>
+      <side-viewer></side-viewer>
+      <drink-viewer></drink-viewer>
+    </div>
   `
 })
-export class AppComponent {
-  title = 'AngularPro';
-}
+export class AppComponent {}
