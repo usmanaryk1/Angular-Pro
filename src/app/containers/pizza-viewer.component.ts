@@ -9,24 +9,19 @@ interface Pizza {
   price: number
 }
 
-export function pizzasFactory(httpClient:any){//if wanna create dynamically intence each time use useFactory
-  //useFactory use if conditally service or anything wana return   
-  return new FoodService(httpClient, 'http://localhost:3000/pizzas')
+// 2.4-Aliased Class Provider: useExisting //Use Aliased Provider useExisting when you want to use the new provider in place of the old Provider.{ provide: ProductService, useExisting: NewProductService },{ provide: NewProductService, useClass: NewProductService },
+export abstract class PizzaService {
+  getPizzas!: () => Observable<Pizza[]>;
 }
 
 @Component({
   selector: 'pizza-viewer',
-  //here we have useClass meand our own providers in the component usually its proveide in app.module.ts
+  //useExisting
   providers: [
-    {provide:FoodService ,
-      //pass a HttpClient as value and make availabel inside useFactory function
-       useFactory:pizzasFactory, // it is use to compatibale a head of time (AOT) of angualr compiler
-       deps:[ //deps is short form of array of dependency
-        HttpClient //up we instanciate our http and pass a string then
-       ]
-      
-      }
-     ],
+    FoodService,
+    {provide: PizzaService, useExisting: FoodService}
+
+  ],
   template: `
     <div>
       <div *ngFor="let item of items$ | async">
@@ -37,8 +32,8 @@ export function pizzasFactory(httpClient:any){//if wanna create dynamically inte
 })
 export class PizzaViewerComponent implements OnInit {
   items$!: Observable<Pizza[]>;
-  constructor(private foodService: FoodService) {}
+  constructor(private foodService: PizzaService) {}
   ngOnInit() {
-    this.items$ = this.foodService.getFood();
+    this.items$ = this.foodService.getPizzas(); // only able to get pizza method from service we actually restrict other message to show here
   }
 }
