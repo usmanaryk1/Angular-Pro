@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FoodStoreService } from './food-store/food-store.service';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +13,14 @@ import { Component } from '@angular/core';
     }
   `],
   template: `
-    <div>
-      <pizza-viewer></pizza-viewer>
-      <side-viewer></side-viewer>
-      <drink-viewer></drink-viewer>
-    </div>
+  <div>
+  Food Store ({{ (store | async)?.name }})
+</div>
   `
 })
-export class AppComponent {}
+export class AppComponent {
+  store = this.foodService.getStore();
+  constructor(private foodService: FoodStoreService) {
+
+  }
+}
