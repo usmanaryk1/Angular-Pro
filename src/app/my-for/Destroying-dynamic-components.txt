@@ -1,1 +1,2 @@
 Destroying dynamic components
+Destroying dynamic components
