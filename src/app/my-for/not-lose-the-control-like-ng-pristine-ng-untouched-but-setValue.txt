@@ -1,0 +1,1 @@
+not lose the control like ng-pristine ng-untouched but setValue
