@@ -1,1 +1,2 @@
 Dynamic <ng-template> rendering with ViewContainerRef so its alternate way
+Dynamic <ng-template> rendering with ViewContainerRef so its alternate way
