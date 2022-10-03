@@ -1,1 +1,2 @@
 showing ng-template view in dynamic component
+showing ng-template view in dynamic component
