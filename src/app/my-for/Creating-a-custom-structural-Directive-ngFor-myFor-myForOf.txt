@@ -1,1 +1,2 @@
 Creating a custom structural Directive ngFor myFor myForOf
+Creating a custom structural Directive ngFor myFor myForOf
