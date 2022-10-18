@@ -1,0 +1,1 @@
+Using ngTemplateOutlet with context to passing the context implicit and variable value
