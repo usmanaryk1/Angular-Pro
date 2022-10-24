@@ -1,3 +1,4 @@
 not lose the control like ng-pristine ng-untouched but setValue
 not lose the control like ng-pristine ng-untouched but setValue
 not lose the control like ng-pristine ng-untouched but setValue
+not lose the control like ng-pristine ng-untouched but setValue
