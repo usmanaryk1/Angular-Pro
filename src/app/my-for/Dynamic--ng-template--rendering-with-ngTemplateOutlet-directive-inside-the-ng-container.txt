@@ -1,0 +1,1 @@
+Dynamic <ng-template> rendering with ngTemplateOutlet directive inside the ng-container
