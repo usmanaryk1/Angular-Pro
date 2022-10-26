@@ -1,0 +1,1 @@
+purpose because it only works with routerLink
