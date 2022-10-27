@@ -1,1 +1,2 @@
 Subscribing to the valueChanges Observable and calculateTotal
+Subscribing to the valueChanges Observable and calculateTotal
