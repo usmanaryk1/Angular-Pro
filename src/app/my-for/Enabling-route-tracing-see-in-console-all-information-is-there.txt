@@ -1,0 +1,1 @@
+Enabling route tracing see in console all information is there
