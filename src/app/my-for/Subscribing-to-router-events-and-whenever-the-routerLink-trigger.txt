@@ -1,0 +1,1 @@
+Subscribing to router events and whenever the routerLink trigger
