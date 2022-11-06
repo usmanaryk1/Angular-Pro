@@ -1,0 +1,1 @@
+Destroying auxiliary outlets so become smarter in main app.component.ts routerLink
