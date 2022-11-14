@@ -1,2 +1,3 @@
 Http service and joining Observables, make JSON, use forkJoin, make entities by two methods
 Http service and joining Observables, make JSON, use forkJoin, make entities by two methods
+Http service and joining Observables, make JSON, use forkJoin, make entities by two methods
