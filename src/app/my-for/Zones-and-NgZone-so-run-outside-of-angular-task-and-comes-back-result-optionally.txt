@@ -1,0 +1,1 @@
+Zones and NgZone so run outside of angular task and comes back result optionally
