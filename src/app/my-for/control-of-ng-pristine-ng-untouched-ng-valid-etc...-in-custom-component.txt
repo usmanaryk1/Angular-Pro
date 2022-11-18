@@ -1,0 +1,1 @@
+control of ng-pristine ng-untouched ng-valid etc... in custom component
