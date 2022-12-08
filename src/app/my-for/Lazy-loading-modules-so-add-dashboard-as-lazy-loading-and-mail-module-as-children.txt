@@ -1,0 +1,1 @@
+Lazy-loading modules so add dashboard as lazy loading and mail module as children
