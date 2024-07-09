@@ -1,1 +1,0 @@
-than one router-outlet can use with name=pane attribute

@@ -1,1 +1,0 @@
-validator deprecated it will be declare something new way above angular 12

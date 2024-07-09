@@ -1,1 +1,0 @@
-Custom form control base so reusable component make for stock change but access

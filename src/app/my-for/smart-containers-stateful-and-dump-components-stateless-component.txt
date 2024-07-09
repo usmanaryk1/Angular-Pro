@@ -1,1 +1,0 @@
-smart containers stateful and dump components stateless component

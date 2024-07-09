@@ -1,1 +1,0 @@
-Reactive Forms setup in smart component and also explain

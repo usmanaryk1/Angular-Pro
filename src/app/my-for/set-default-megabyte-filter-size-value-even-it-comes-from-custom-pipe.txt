@@ -1,1 +1,0 @@
-set default megabyte filter size value even it comes from custom pipe

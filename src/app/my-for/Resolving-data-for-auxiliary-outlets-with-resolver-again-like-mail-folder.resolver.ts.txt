@@ -1,1 +1,0 @@
-Resolving data for auxiliary outlets with resolver again like mail-folder.resolver.ts

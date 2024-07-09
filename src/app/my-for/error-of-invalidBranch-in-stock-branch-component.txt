@@ -1,1 +1,0 @@
-error of invalidBranch in stock-branch component

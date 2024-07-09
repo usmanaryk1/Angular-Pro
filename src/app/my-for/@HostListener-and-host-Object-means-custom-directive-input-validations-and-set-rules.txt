@@ -1,1 +1,0 @@
-@HostListener and host Object means custom directive input validations and set rules

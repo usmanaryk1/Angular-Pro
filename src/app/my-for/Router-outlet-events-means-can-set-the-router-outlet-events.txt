@@ -1,1 +1,0 @@
-Router outlet events means can set the router-outlet events

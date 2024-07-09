@@ -455,64 +455,64 @@ $commit_messages = @(
     "Zones and NgZone so run outside of angular task and comes back result optionally"
     )
     
-# Start date
-$start_date = [datetime]::ParseExact("2022-03-11", "yyyy-MM-dd", $null)
-# End date
-$end_date = [datetime]::ParseExact("2022-12-31", "yyyy-MM-dd", $null)
+# # Start date
+# $start_date = [datetime]::ParseExact("2022-05-11", "yyyy-MM-dd", $null)
+# # End date
+# $end_date = [datetime]::ParseExact("2022-12-31", "yyyy-MM-dd", $null)
 
-# Function to increment date
-function Increment-Date($date) {
-    $date.AddDays(1)
-}
+# # Function to increment date
+# function Increment-Date($date) {
+#     $date.AddDays(1)
+# }
 
-# Function to sanitize file names
-function Sanitize-FileName($name) {
-    return $name -replace '[\/:*?"<>|#]', '-'
-}
+# # Function to sanitize file names
+# function Sanitize-FileName($name) {
+#     return $name -replace '[\/:*?"<>|#]', '-'
+# }
 
-# Current date variable
-$current_date = $start_date
+# # Current date variable
+# $current_date = $start_date
 
-# Counter for commit messages
-$message_index = 0
+# # Counter for commit messages
+# $message_index = 0
 
-# Loop through dates and create commits
-while ($current_date -le $end_date) {
-    if ($current_date.DayOfWeek -ne [System.DayOfWeek]::Saturday -and $current_date.DayOfWeek -ne [System.DayOfWeek]::Sunday) {
-    $date_with_time = $current_date.ToString("yyyy-MM-ddTHH:mm:ss")
-    $message = $commit_messages[$message_index % $commit_messages.Count]
+# # Loop through dates and create commits
+# while ($current_date -le $end_date) {
+#     if ($current_date.DayOfWeek -ne [System.DayOfWeek]::Saturday -and $current_date.DayOfWeek -ne [System.DayOfWeek]::Sunday) {
+#     $date_with_time = $current_date.ToString("yyyy-MM-ddTHH:mm:ss")
+#     $message = $commit_messages[$message_index % $commit_messages.Count]
     
-    # Set the date for the commit
-    $env:GIT_AUTHOR_DATE = $date_with_time
-    $env:GIT_COMMITTER_DATE = $date_with_time
+#     # Set the date for the commit
+#     $env:GIT_AUTHOR_DATE = $date_with_time
+#     $env:GIT_COMMITTER_DATE = $date_with_time
 
-    # Create a new file or make changes to an existing file
-    $file_name = Sanitize-FileName("$($message.Replace(' ', '-')).txt")
-    "$message" | Out-File -FilePath $file_name
+#     # Create a new file or make changes to an existing file
+#     $file_name = Sanitize-FileName("$($message.Replace(' ', '-')).txt")
+#     Add-Content -Path $file_name -Value "$message"
 
-    # Stage the changes
-    git add $file_name
+#     # Stage the changes
+#     git add $file_name
 
-    # Commit the changes with the backdated timestamp
-    git commit -m "$message"
+#     # Commit the changes with the backdated timestamp
+#     git commit -m "$message"
 
-    # Push the commit immediately
-    #git push origin master
-    git push origin main
+#     # Push the commit immediately
+#     #git push origin master
+#     git push origin main
 
-    # Increment the message index
-    $message_index++
+#     # Increment the message index
+#     $message_index++
     
-    }
+#     }
 
-    # Increment the date
-    $current_date = Increment-Date $current_date
+#     # Increment the date
+#     $current_date = Increment-Date $current_date
 
-}
+# }
 
-# Unset the environment variables
-Remove-Item Env:GIT_AUTHOR_DATE
-Remove-Item Env:GIT_COMMITTER_DATE
+# # Unset the environment variables
+# Remove-Item Env:GIT_AUTHOR_DATE
+# Remove-Item Env:GIT_COMMITTER_DATE
 
 
 
@@ -568,57 +568,67 @@ Remove-Item Env:GIT_COMMITTER_DATE
 #     "Angular Forms Validation"
 # )
 
-# # Start date
-# $start_date = [datetime]::ParseExact("2022-03-11", "yyyy-MM-dd", $null)
-# # End date
-# $end_date = [datetime]::ParseExact("2022-07-30", "yyyy-MM-dd", $null)
+# Start date
+$start_date = [datetime]::ParseExact("2022-05-11", "yyyy-MM-dd", $null)
+# End date
+$end_date = [datetime]::ParseExact("2022-07-30", "yyyy-MM-dd", $null)
 
-# # Function to generate a random date between start and end date
-# function Get-RandomDate($startDate, $endDate) {
-#     $range = ($endDate - $startDate).Days
-#     return $startDate.AddDays((Get-Random -Maximum $range))
-# }
+# Function to generate a random date between start and end date
+function Get-RandomDate($startDate, $endDate) {
+    $range = ($endDate - $startDate).Days
+    return $startDate.AddDays((Get-Random -Maximum $range))
+}
 
-# # Generate 45 unique random dates
-# $random_dates = @()
-# while ($random_dates.Count -lt 45) {
-#     $random_date = Get-RandomDate $start_date $end_date
-#     if (-not $random_dates.Contains($random_date)) {
-#         $random_dates += $random_date
-#     }
-# }
+# Function to sanitize file names
+function Sanitize-FileName($name) {
+    return $name -replace '[\/:*?"<>|#]', '-'
+}
 
-# # Sort the random dates
-# $random_dates = $random_dates | Sort-Object
+# Generate 45 unique random dates
+$random_dates = @()
+while ($random_dates.Count -lt 45) {
+    $random_date = Get-RandomDate $start_date $end_date
+    # if (-not $random_dates.Contains($random_date)) {
+    #     $random_dates += $random_date
+    # }
+    if (-not $random_dates.Contains($random_date) -and
+        $random_date.DayOfWeek -ne [System.DayOfWeek]::Saturday -and
+        $random_date.DayOfWeek -ne [System.DayOfWeek]::Sunday) {
+        $random_dates += $random_date
+    }
+}
 
-# # Loop through random dates and create commits
-# for ($i = 0; $i -lt $random_dates.Count; $i++) {
-#     $current_date = $random_dates[$i]
-#     $date_with_time = $current_date.ToString("yyyy-MM-ddTHH:mm:ss")
-#     $message = $commit_messages[$i % $commit_messages.Count]
+# Sort the random dates
+$random_dates = $random_dates | Sort-Object
+
+# Loop through random dates and create commits
+for ($i = 0; $i -lt $random_dates.Count; $i++) {
+    $current_date = $random_dates[$i]
+    $date_with_time = $current_date.ToString("yyyy-MM-ddTHH:mm:ss")
+    $message = $commit_messages[$i % $commit_messages.Count]
     
-#     # Set the date for the commit
-#     $env:GIT_AUTHOR_DATE = $date_with_time
-#     $env:GIT_COMMITTER_DATE = $date_with_time
+    # Set the date for the commit
+    $env:GIT_AUTHOR_DATE = $date_with_time
+    $env:GIT_COMMITTER_DATE = $date_with_time
 
-#     # Create a new file or make changes to an existing file
-#     $file_name = "$($message.Replace(' ', '-')).txt"
-#     Add-Content -Path $file_name -Value "$message"
+    # Create a new file or make changes to an existing file
+    $file_name = Sanitize-FileName("$($message.Replace(' ', '-')).txt")
+    Add-Content -Path $file_name -Value "$message"
 
-#     # Stage the changes
-#     git add $file_name
+    # Stage the changes
+    git add $file_name
 
-#     # Commit the changes with the backdated timestamp
-#     git commit -m "$message"
+    # Commit the changes with the backdated timestamp
+    git commit -m "$message"
 
-#     # Push the commit immediately
-#     # git push origin master
-#     git push origin main
-# }
+    # Push the commit immediately
+    # git push origin master
+    git push origin main
+}
 
-# # Unset the environment variables
-# Remove-Item Env:GIT_AUTHOR_DATE
-# Remove-Item Env:GIT_COMMITTER_DATE
+# Unset the environment variables
+Remove-Item Env:GIT_AUTHOR_DATE
+Remove-Item Env:GIT_COMMITTER_DATE
 
 
 # for run this script paste this in powershell terminal => powershell -ExecutionPolicy Bypass -File create-backdated-commits.ps1

@@ -1,1 +1,0 @@
-if has permission then can load lazy load module otherwise not
