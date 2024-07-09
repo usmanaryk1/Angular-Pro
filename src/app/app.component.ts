@@ -1,3 +1,4 @@
+
 import { Component, OnInit, DoCheck, NgZone } from '@angular/core';
 
 @Component({
@@ -26,4 +27,5 @@ export class AppComponent implements OnInit, DoCheck {
   ngDoCheck() {
     console.log('Change detection has been run!'); // third time it will log when counter will come back with 100 and show result in template after 1 sec, can see clearly counter will be 0 for one second then it will update to 100 
   }
+
 }
