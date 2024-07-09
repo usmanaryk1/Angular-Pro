@@ -5,9 +5,9 @@ import { filter, map, tap } from 'rxjs/operators';
   selector: 'app-root',
   styleUrls: ['./app.component.scss'],
   template:`
-  This is {{title}}.
+  <stock-inventory></stock-inventory>
   `
 })
 export class AppComponent {
-  title = 'AngularPro';
+  title = 'Reactive Form Start From Here';
 }
