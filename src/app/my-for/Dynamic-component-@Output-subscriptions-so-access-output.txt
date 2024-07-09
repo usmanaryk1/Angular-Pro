@@ -1,2 +1,0 @@
-Dynamic component @Output subscriptions so access output
-Dynamic component @Output subscriptions so access output

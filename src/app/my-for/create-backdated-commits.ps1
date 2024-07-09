@@ -595,6 +595,10 @@ while ($random_dates.Count -lt 45) {
         $random_date.DayOfWeek -ne [System.DayOfWeek]::Saturday -and
         $random_date.DayOfWeek -ne [System.DayOfWeek]::Sunday) {
         $random_dates += $random_date
+    }else {
+        if (-not $random_dates.Contains($random_date)) {
+            $random_dates += $random_date
+        }
     }
 }
 
