@@ -1,1 +1,0 @@
-name='pane' so use routerLink in mail-item.component.ts file

@@ -1,1 +1,0 @@
-here routerLinkActive will not work in JS way for styling

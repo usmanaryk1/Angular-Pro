@@ -1,2 +1,0 @@
-ng-dirty to ngpristine 
-ng-dirty to ngpristine 

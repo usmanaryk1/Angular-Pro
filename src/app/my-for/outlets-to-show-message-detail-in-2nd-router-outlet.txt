@@ -1,1 +1,0 @@
-outlets to show message detail in 2nd router-outlet

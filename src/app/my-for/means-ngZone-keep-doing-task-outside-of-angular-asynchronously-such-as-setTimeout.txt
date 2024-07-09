@@ -1,1 +1,0 @@
-means ngZone keep doing task outside of angular asynchronously such as setTimeout

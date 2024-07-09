@@ -1,3 +1,0 @@
-Configurable NgModules so make any module into forRoot module via configuration means
-Configurable NgModules so make any module into forRoot module via configuration means
-Configurable NgModules so make any module into forRoot module via configuration means

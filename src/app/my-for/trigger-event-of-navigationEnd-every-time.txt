@@ -1,2 +1,0 @@
-trigger event of navigationEnd every time
-trigger event of navigationEnd every time

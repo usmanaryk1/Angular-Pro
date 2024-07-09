@@ -1,2 +1,0 @@
-click, event handler or any other asynchronous operation
-click, event handler or any other asynchronous operation
