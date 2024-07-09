@@ -569,9 +569,9 @@ $commit_messages = @(
 # )
 
 # Start date
-$start_date = [datetime]::ParseExact("2022-05-11", "yyyy-MM-dd", $null)
+$start_date = [datetime]::ParseExact("2022-07-11", "yyyy-MM-dd", $null)
 # End date
-$end_date = [datetime]::ParseExact("2022-07-30", "yyyy-MM-dd", $null)
+$end_date = [datetime]::ParseExact("2022-12-30", "yyyy-MM-dd", $null)
 
 # Function to generate a random date between start and end date
 function Get-RandomDate($startDate, $endDate) {
@@ -588,18 +588,14 @@ function Sanitize-FileName($name) {
 $random_dates = @()
 while ($random_dates.Count -lt 45) {
     $random_date = Get-RandomDate $start_date $end_date
-    # if (-not $random_dates.Contains($random_date)) {
+    if (-not $random_dates.Contains($random_date)) {
+        $random_dates += $random_date
+    }
+    # if (-not $random_dates.Contains($random_date) -and
+    #     $random_date.DayOfWeek -ne [System.DayOfWeek]::Saturday -and
+    #     $random_date.DayOfWeek -ne [System.DayOfWeek]::Sunday) {
     #     $random_dates += $random_date
     # }
-    if (-not $random_dates.Contains($random_date) -and
-        $random_date.DayOfWeek -ne [System.DayOfWeek]::Saturday -and
-        $random_date.DayOfWeek -ne [System.DayOfWeek]::Sunday) {
-        $random_dates += $random_date
-    }else {
-        if (-not $random_dates.Contains($random_date)) {
-            $random_dates += $random_date
-        }
-    }
 }
 
 # Sort the random dates

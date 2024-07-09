@@ -1,2 +1,0 @@
-Using the platform agnostic Renderer migrate renderer into renderer2 angular9
-Using the platform agnostic Renderer migrate renderer into renderer2 angular9

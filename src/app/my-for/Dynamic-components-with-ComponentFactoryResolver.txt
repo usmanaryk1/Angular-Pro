@@ -1,2 +1,0 @@
-Dynamic components with ComponentFactoryResolver
-Dynamic components with ComponentFactoryResolver

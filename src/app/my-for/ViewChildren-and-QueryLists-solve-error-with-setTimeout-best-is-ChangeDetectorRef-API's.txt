@@ -1,2 +1,0 @@
-ViewChildren and QueryLists solve error with setTimeout best is ChangeDetectorRef API's
-ViewChildren and QueryLists solve error with setTimeout best is ChangeDetectorRef API's
