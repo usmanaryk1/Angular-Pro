@@ -8,26 +8,23 @@ import { RouterModule, Routes} from '@angular/router';
 import { MailModule } from './mail/mail.module';
 
 import { AppComponent } from './app.component';
-import { StockInventoryService } from './stock-inventory/services/stock-inventory.service';
-import { StockInventoryModule } from './stock-inventory/stock-inventory.module';
-//import stock-inventory module where Reactive forms import
+import { ExampleOneComponent } from './one/one.component';
+
+import { ExampleTwoComponent } from './two/two.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-
-    MyForDirective
-   
-
-    FileSizePipe
-
+    ExampleOneComponent,
+    ExampleTwoComponent,
   ],
   imports: [
     BrowserModule,
-    StockInventoryModule,
-   
+    
   ],
-  providers: [StockInventoryService],
+  providers: [],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule {}
